@@ -10,7 +10,10 @@ FadeLed::FadeLed(byte pin) :_count(0),
                             _countMax(40){
   _pin = pin;
   
-  _ledList[_ledCount++] = this;
+  //only add it if it fits
+  if(_ledCount < FADE_LED_MAX_LED){
+    _ledList[_ledCount++] = this;
+  }
 }
 
 void FadeLed::begin(byte val){

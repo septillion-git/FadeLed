@@ -7,7 +7,9 @@
 #include "WProgram.h"
 #endif
 
+#ifndef FADE_LED_MAX_LED
 #define FADE_LED_MAX_LED  6
+#endif
 
 #ifndef FADE_LED_RESOLUTION
 #define FADE_LED_RESOLUTION 255
