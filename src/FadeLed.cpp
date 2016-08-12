@@ -7,7 +7,8 @@ byte FadeLed::_ledCount = 0;
 FadeLed* FadeLed::_ledList[FADE_LED_MAX_LED];
 
 FadeLed::FadeLed(byte pin) :_count(0),
-                            _countMax(40){
+                            _countMax(40),
+                            _constTime(false){
   _pin = pin;
   
   //only add it if it fits
@@ -48,8 +49,9 @@ void FadeLed::beginOn(){
   this->begin(FADE_LED_RESOLUTION);
 }
 
-void FadeLed::setTime(unsigned long time){
+void FadeLed::setTime(unsigned long time, bool constTime){
   this->_countMax = time / _interval;
+  this->_constTime = constTime;
 }
 
 bool FadeLed::rising(){
@@ -63,8 +65,13 @@ bool FadeLed::falling(){
 void FadeLed::updateThis(){
   //need to fade up
   if(_curVal < _setVal){
-    byte newVal = _startVal + _count * FADE_LED_RESOLUTION / _countMax;
-    //Serial.println(_count);
+    byte newVal;
+    if(_constTime){
+      newVal = _startVal + _count * (_setVal - _startVal) / _countMax;
+    }
+    else{
+      newVal = _startVal + _count * FADE_LED_RESOLUTION / _countMax;
+    }
     
     //check if new
     if(newVal != _curVal){
@@ -86,7 +93,13 @@ void FadeLed::updateThis(){
   }
   //need to fade down
   else if(_curVal > _setVal){
-    byte newVal = _startVal - _count * FADE_LED_RESOLUTION / _countMax;
+    byte newVal;
+    if(_constTime){
+      newVal = _startVal - _count * (_startVal - _setVal) / _countMax;
+    }
+    else{
+      newVal = _startVal - _count * FADE_LED_RESOLUTION / _countMax;
+    }
     
     //check if new
     if(newVal != _curVal){

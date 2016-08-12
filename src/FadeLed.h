@@ -25,7 +25,7 @@ class FadeLed{
     void on();
     void off();
     void beginOn();
-    void setTime(unsigned long time);
+    void setTime(unsigned long time, bool constTime = false);
     bool rising();
     bool falling();
     
@@ -36,6 +36,7 @@ class FadeLed{
     byte _setVal;
     byte _startVal;
     byte _curVal;
+    bool _constTime;
     unsigned long _countMax;
     unsigned long _count;
     
