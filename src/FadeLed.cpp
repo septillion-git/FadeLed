@@ -18,14 +18,19 @@ FadeLed::FadeLed(byte pin) :_count(0),
 }
 
 void FadeLed::begin(byte val){
+  //set to both so no fading happens
   _setVal = val;
   _curVal = val;
   analogWrite(this->_pin, _curVal);
 }
 
+
 void FadeLed::set(byte val){
+  //save and reset counter
   _setVal = val;
   _count = 1;
+  
+  //so we know where to fade from
   _startVal = _curVal;
 }
 
@@ -50,6 +55,7 @@ void FadeLed::beginOn(){
 }
 
 void FadeLed::setTime(unsigned long time, bool constTime){
+  //Calculate how many times interval need to pass in a fade
   this->_countMax = time / _interval;
   this->_constTime = constTime;
 }
@@ -66,10 +72,14 @@ void FadeLed::updateThis(){
   //need to fade up
   if(_curVal < _setVal){
     byte newVal;
+    
+    //we always start at the current level saved in _startVal
     if(_constTime){
+      //for constant fade time we add the difference over countMax steps
       newVal = _startVal + _count * (_setVal - _startVal) / _countMax;
     }
     else{
+      //for constant fade speed we add the full resolution over countMax steps
       newVal = _startVal + _count * FADE_LED_RESOLUTION / _countMax;
     }
     
@@ -83,6 +93,7 @@ void FadeLed::updateThis(){
       else if(newVal > _setVal){
         _curVal = _setVal;
       }
+      //Only if the new value is good we use that
       else{
         _curVal = newVal;
       }
@@ -94,10 +105,14 @@ void FadeLed::updateThis(){
   //need to fade down
   else if(_curVal > _setVal){
     byte newVal;
+    
+    //we always start at the current level saved in _startVal
     if(_constTime){
+      //for constant fade time we subtract the difference over countMax steps
       newVal = _startVal - _count * (_startVal - _setVal) / _countMax;
     }
     else{
+      //for constant fade speed we subtract the full resolution over countMax steps
       newVal = _startVal - _count * FADE_LED_RESOLUTION / _countMax;
     }
     
@@ -111,6 +126,7 @@ void FadeLed::updateThis(){
       else if(newVal < _setVal){
         _curVal = _setVal;
       }
+      //Only if the new value is good we use that
       else{
         _curVal = newVal;
       }
@@ -136,12 +152,9 @@ void FadeLed::update(){
   if(millisNow - _millisLast > _interval){
     //_millisLast = millisNow;
     //more accurate:
-    //while to compensate if not called in time <<<------
-    while(millisNow - _millisLast > _interval){
-      _millisLast += _interval;
-    }
-    
-    
+    _millisLast += _interval;
+        
+    //update every object
     for(byte i = 0; i < _ledCount; i++){
       _ledList[i]->updateThis();
     }
