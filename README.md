@@ -14,7 +14,7 @@ This is the default mode. A led will fade with a constant speed. The time you se
 Each fade will now take the same amount of time. No matter if you fade the full scale or just just by 10 steps, it will take the same time. 
 
 ##Download and install
-Laterst release: **[v1.2.1](https://github.com/septillion-git/FadeLed/archive/v1.2.1.zip)**
+Latest release: **[v1.2.1](https://github.com/septillion-git/FadeLed/archive/v1.2.1.zip)**
 
 1. Download the latest release.
 2. Extract it to the `libraries` folder **inside** your Sketchbook. Default is `[user]\Arduino\libraries`. 
@@ -64,13 +64,13 @@ The most common function of the library. Simply sets the brightness to fade to.
 statusLed.set(127); //fades the statusLed to halve brightness
 ```
 
-There are also the shortcuts `.on()` and `.off()` to simply fade to full on or full off respectifly.
+There are also the shortcuts `.on()` and `.off()` to simply fade to full on or full off respectively.
 
-##More methodes
-Other usefull methodes of the library include `.on()`, `.off()`, `.done()`, `.get()`, `.rising()`, `.falling()` and `FadeLed::setInterval()`. For documentation of all the methodes, see the full documentation.
+##More methods
+Other useful methods of the library include `.on()`, `.off()`, `.done()`, `.get()`, `.rising()`, `.falling()` and `FadeLed::setInterval()`. For documentation of all the methods, see the full documentation.
 
 ##Full documentation
-Full documentation of all the methodes of this library can be found inside the library located in `FadeLed\doc`. Just open `FadeLed\doc\index.html` to see all methodes of FadeLed. 
+Full documentation of all the methods of this library can be found inside the library located in `FadeLed\doc`. Just open `FadeLed\doc\index.html` to see all methods of FadeLed. 
 
 This documentation is powered by [Doxygen](http://www.doxygen.org/) and thus fully extracted from the source files. This readme.md is also used as Main Page.
 
@@ -80,7 +80,7 @@ This documentation is powered by [Doxygen](http://www.doxygen.org/) and thus ful
 Check to see if `FadeLed::update()` is called regularly. So you should **not** use blocking code! The `loop()` should run freely. The biggest example of blocking code is the `delay()` function. (See [Blink without delay](https://www.arduino.cc/en/Tutorial/BlinkWithoutDelay) how to fix that.) But also other functions can block like `Serial.readBytesUntil()`, `Serial.parseInt()` or other functions that just wait until something happens.
 
 ###Nothing happens!
-Are you calling `FadeLed::update()` freqently? Have you used a PWM (capable of `analogWrite()`) pin? 
+Are you calling `FadeLed::update()` frequently? Have you used a PWM (capable of `analogWrite()`) pin? 
 
 If you do, are you using another library (or code) that uses a timer? For example `Servo`. This will block the PWM of some pins. Check if you can do a plain analogWrite in the **same** code.
 
@@ -92,7 +92,7 @@ By default the library can only fade 6 leds. Why 6? That's the number of PWM pin
 ```
 
 ###I want to fade a RGB led nicely.
-Set the fade time of each color to the same time and to constant fade *time*. Now always set the brightness of all the three colors together (or at least all befor you call `FadeLed::update()`).
+Set the fade time of each color to the same time and to constant fade *time*. Now always set the brightness of all the three colors together (or at least all before you call `FadeLed::update()`).
 
 ```C++
 #include <FadeLed.h>
