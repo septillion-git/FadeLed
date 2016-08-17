@@ -68,6 +68,10 @@ bool FadeLed::falling(){
   return (_curVal > _setVal);
 }
 
+void FadeLed::stop(){
+  _setVal = _curVal;
+}
+
 void FadeLed::updateThis(){
   //need to fade up
   if(_curVal < _setVal){

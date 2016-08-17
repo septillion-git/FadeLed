@@ -183,6 +183,15 @@ class FadeLed{
      */
     bool falling();
     
+    /**
+     *  @brief Stops the current fading
+     *  
+     *  @details Makes the current brightness the set brightness
+     *  
+     *  Useful if you fade to find the desired brightness
+     */
+    void stop();
+    
     
     /**
      *  @brief Updates all FadeLed objects
