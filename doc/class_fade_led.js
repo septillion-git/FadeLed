@@ -12,6 +12,7 @@ var class_fade_led =
     [ "set", "class_fade_led.html#aec5b17c40db2636d9ce1a09a4684355f", null ],
     [ "setInterval", "class_fade_led.html#abe9bf0a83d0e60e836c74557d22e505b", null ],
     [ "setTime", "class_fade_led.html#a72479dc8ebd4136aaecf69fb02a9f335", null ],
+    [ "stop", "class_fade_led.html#ae860c5545dacbadd63257393a7e581ea", null ],
     [ "update", "class_fade_led.html#a90fa3c5bbf46dc3e75db1853849fff06", null ],
     [ "updateThis", "class_fade_led.html#abaa8f57a62c48a594f650745eb3d0dc2", null ],
     [ "_constTime", "class_fade_led.html#aaefde460b017166b3eff560c6dff14a0", null ],
