@@ -26,16 +26,22 @@ void FadeLed::begin(byte val){
 
 
 void FadeLed::set(byte val){
-  //save and reset counter
-  _setVal = val;
-  _count = 1;
-  
-  //so we know where to fade from
-  _startVal = _curVal;
+  if(_setVal != val){
+    //save and reset counter
+    _setVal = val;
+    _count = 1;
+
+    //so we know where to fade from
+    _startVal = _curVal;
+  }
 }
 
 byte FadeLed::get(){
   return _setVal;
+}
+
+byte FadeLed::getCurrent(){
+  return _curVal;
 }
 
 bool FadeLed::done(){

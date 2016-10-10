@@ -6,6 +6,7 @@ var class_fade_led =
     [ "done", "class_fade_led.html#a4111e85bcec6fc2b651c87733dcd5d2f", null ],
     [ "falling", "class_fade_led.html#ad38c19665195b4194660b2785bed2d31", null ],
     [ "get", "class_fade_led.html#adf1f4aeb7cd8a6a572a5af1b390842bc", null ],
+    [ "getCurrent", "class_fade_led.html#a84416e801a3b2628b8663f14167e12cd", null ],
     [ "off", "class_fade_led.html#a02b736af264f7b502f7a7233a570955e", null ],
     [ "on", "class_fade_led.html#a7737b34ffeb819ce5156a31aa10f49de", null ],
     [ "rising", "class_fade_led.html#ab70d55a58ec889051f9efde681c11e9d", null ],

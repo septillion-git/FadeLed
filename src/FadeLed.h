@@ -100,6 +100,19 @@ class FadeLed{
     byte get();
     
     /**
+     *  @brief Returns the current brightness
+     *  
+     *  @details Returns the current brightness of the output
+     *  
+     *  @note It does not return the last set value. For that, use get()
+     *  
+     *  @see get()
+     *  
+     *  @return Current brightness of the led.
+     */
+    byte getCurrent();
+    
+    /**
      *  @brief Returns if the led is done fading
      *  
      *  @details **true** if the led is done fading and reached the set() value.
