@@ -14,7 +14,7 @@ This is the default mode. A led will fade with a constant speed. The time you se
 Each fade will now take the same amount of time. No matter if you fade the full scale or just just by 10 steps, it will take the same time. 
 
 ##Download and install
-Latest release: **[v1.2.2](https://github.com/septillion-git/FadeLed/archive/v1.2.2.zip)**
+Latest release: **[v1.3.0](https://github.com/septillion-git/FadeLed/archive/v1.3.0.zip)**
 
 1. Download the latest release.
 2. Extract it to the `libraries` folder **inside** your Sketchbook. Default is `[user]\Arduino\libraries`. 
