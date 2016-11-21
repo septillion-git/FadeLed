@@ -34,7 +34,7 @@ FadeLed anotherLed(6); //Other fading led on pin 6
 It's also possible to make an array of multiple FadeLed-objects which can make it easy to loop over each.
 
 ```C++
-FadeLed myLeds[] = {5, 6}; //creates two FadeLed objects: leds[0] and leds[2]
+FadeLed myLeds[] = {5, 6}; //creates two FadeLed objects: leds[0] and leds[1]
 ```
 
 ###void FadeLed::update()
