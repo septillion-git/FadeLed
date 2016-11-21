@@ -26,6 +26,40 @@ void FadeLed::begin(byte val){
 
 
 void FadeLed::set(byte val){
+  
+  /** edit 2016-11-17
+   *  Fix so you can set it to a new value while 
+   *  fading in constant speed. And impossible to set 
+   *  a new value in constant time.
+   */
+  if(_setVal != val){
+    //if iit's now fading we have to check how to change it
+    if(!done()){
+      //setting new val while fading in constant time not possing
+      if(_constTime){
+        return;
+      }
+      //if in constant speed the new val is in same direction and not passed yet
+      else if(( (_startVal < _setVal) && (_curVal < val)) || //up
+              ( (_startVal > _setVal) && (_curVal > val)) ){ //down
+        //just set a new val
+        _setVal = val;
+        return;
+      }
+    }
+    
+    //if we make it here it's or finished fading
+    //or constant speed in other direction
+    //save and reset
+    _setVal = val;
+    _count = 1;
+    
+    //and start fading from current position
+    _startVal = _curVal;
+  }
+  
+  
+   /* Old code 2016-11-17
   if(_setVal != val){
     //save and reset counter
     _setVal = val;
@@ -33,7 +67,7 @@ void FadeLed::set(byte val){
 
     //so we know where to fade from
     _startVal = _curVal;
-  }
+  }*/
 }
 
 byte FadeLed::get(){
