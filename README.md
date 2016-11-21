@@ -132,3 +132,6 @@ For example for a ESP8266 with 10-bit PWM:
 ```
 
 Would like to automate this in the future depending on the device used.
+
+###Nothing changes when I call FadeLed.set() in constant fade time
+Calling FadeLed.set() is ignored while the led is still fading. Wait until it's done (check FadeLed.done() ) or call FadeLed.stop() to stop at the current brightness after which you can set a new brightness to fade to.
