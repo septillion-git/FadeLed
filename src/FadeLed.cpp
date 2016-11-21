@@ -17,7 +17,7 @@ FadeLed::FadeLed(byte pin) :_count(0),
   }
 }
 
-void FadeLed::begin(byte val){
+void FadeLed::begin(flvar_t val){
   //set to both so no fading happens
   _setVal = val;
   _curVal = val;
@@ -25,7 +25,7 @@ void FadeLed::begin(byte val){
 }
 
 
-void FadeLed::set(byte val){
+void FadeLed::set(flvar_t val){
   if(_setVal != val){
     //save and reset counter
     _setVal = val;
@@ -36,11 +36,11 @@ void FadeLed::set(byte val){
   }
 }
 
-byte FadeLed::get(){
+flvar_t FadeLed::get(){
   return _setVal;
 }
 
-byte FadeLed::getCurrent(){
+flvar_t FadeLed::getCurrent(){
   return _curVal;
 }
 
@@ -81,7 +81,7 @@ void FadeLed::stop(){
 void FadeLed::updateThis(){
   //need to fade up
   if(_curVal < _setVal){
-    byte newVal;
+    flvar_t newVal;
     
     //we always start at the current level saved in _startVal
     if(_constTime){
@@ -114,7 +114,7 @@ void FadeLed::updateThis(){
   }
   //need to fade down
   else if(_curVal > _setVal){
-    byte newVal;
+    flvar_t newVal;
     
     //we always start at the current level saved in _startVal
     if(_constTime){

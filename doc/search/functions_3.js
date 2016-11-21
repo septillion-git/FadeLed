@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['get',['get',['../class_fade_led.html#adf1f4aeb7cd8a6a572a5af1b390842bc',1,'FadeLed']]],
-  ['getcurrent',['getCurrent',['../class_fade_led.html#a84416e801a3b2628b8663f14167e12cd',1,'FadeLed']]]
+  ['get',['get',['../class_fade_led.html#a296d8b42151afbca83bc631b32c61939',1,'FadeLed']]],
+  ['getcurrent',['getCurrent',['../class_fade_led.html#a6727918cb455b52cf46e2df697d07a10',1,'FadeLed']]]
 ];

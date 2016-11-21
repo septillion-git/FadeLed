@@ -15,6 +15,33 @@
 #endif
 
 /**
+ *  @brief Sets the number of bits used for the PWM.
+ *  
+ *  Set this to a higher value for devices with higher PWM resolution. Will set the upper limit and variable type correspondingly.
+ *  
+ *  **Default** 8-bit: 0-255 for Uno/Nano/Pro Mini etc
+ *  
+ *  @warning Can't simply increase the number to have more PWM levels. It's limited to the hardware.
+ */
+#define FADE_LED_PWM_BITS 8
+
+
+/**
+ *  @brief Sets the variable type used for the brightness.
+ *  
+ *  Is done automatically according to #FADE_LED_PWM_BITS. A byte (uint8_t) is used for 8-bit or less. A unsigned int (uint16_t) is used for anything above. So limited to 16-bit PWM.
+ *  
+ *  @see FADE_LED_PWM_BITS
+ */
+#if FADE_LED_PWM_BITS <= 8
+typedef byte flvar_t;
+#else
+typedef unsigned int flvar_t;
+#endif
+
+
+
+/**
  *  @brief Maximum number of FadeLed objects
  *  
  *  **Default** = 6, the number of hardware PWM pins on a Uno/Pro Mini/Nano
@@ -26,12 +53,14 @@
 /**
  *  @brief The maximum brightness step of the PWM
  *  
- *  Can be made less for less then 8-bit PWM
+ *  Automatically set depending on #FADE_LED_PWM_BITS. 255 for 8-bit.
  *  
  *  @warning Can't simply be increased for more then 8-bit because byte type is used to pass brightness values!
+ *  
+ *  @see FADE_LED_PWM_BITS
  */
 #ifndef FADE_LED_RESOLUTION
-#define FADE_LED_RESOLUTION 255
+#define FADE_LED_RESOLUTION ((1 <<FADE_LED_PWM_BITS) -1)
 #endif
 
 /**
@@ -71,7 +100,7 @@ class FadeLed{
      *  
      *  @param [in] val The brightness to start at.
      */
-    void begin(byte val);
+    void begin(flvar_t val);
     
     /**
      *  @brief Set the brightness to fade to
@@ -86,7 +115,7 @@ class FadeLed{
      *  
      *  @param [in] val The brightness to fade to.
      */
-    void set(byte val);
+    void set(flvar_t val);
     
     /**
      *  @brief Returns the last **set** brightness
@@ -97,7 +126,7 @@ class FadeLed{
      *  
      *  @return The last set brightness
      */
-    byte get();
+    flvar_t get();
     
     /**
      *  @brief Returns the current brightness
@@ -110,7 +139,7 @@ class FadeLed{
      *  
      *  @return Current brightness of the led.
      */
-    byte getCurrent();
+    flvar_t getCurrent();
     
     /**
      *  @brief Returns if the led is done fading
@@ -242,9 +271,9 @@ class FadeLed{
     
   protected:
     byte _pin; //!< PWM pin to control
-    byte _setVal; //!< The brightness to which last set to fade to
-    byte _startVal; //!< The brightness at which the new fade needs to start
-    byte _curVal; //!< Current brightness
+    flvar_t _setVal; //!< The brightness to which last set to fade to
+    flvar_t _startVal; //!< The brightness at which the new fade needs to start
+    flvar_t _curVal; //!< Current brightness
     bool _constTime; //!< Constant time fade or just constant speed fade
     unsigned long _countMax; //!< The number of #_interval's a fade should take
     unsigned long _count; //!< The number of #_interval's passed

@@ -122,3 +122,13 @@ void loop() {
   }
 }
 ```
+
+###I have a device with more then 8-bit PWM
+Simply change the macro FADE_LED_PWM_BITS in FadeLed.h to the number of bits your device has. 
+
+For example for a ESP8266 with 10-bit PWM:
+```C++
+#define FADE_LED_PWM_BITS 10
+```
+
+Would like to automate this in the future depending on the device used.
