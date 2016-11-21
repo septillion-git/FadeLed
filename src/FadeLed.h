@@ -105,9 +105,13 @@ class FadeLed{
     /**
      *  @brief Set the brightness to fade to
      *  
-     *  @details Set the brightness to which the led should fade to. If the led is still fading that fade is ended directly and the fade to the new value is started directly. To start fading after the current fade check if it's done via done()
+     *  @details Set the brightness to which the led should fade to. 
      *  
-     *  In constant fade time the fade time is also reset. Even when the led was not done fading yet. So in constant fade time it will again take 'time' to reach the desired brightness.
+     *  In **constant fade speed** if the new value is in the same fading direction as were started and the value is not yet passed the fade just continues to the new value
+     *  
+     *  In **constant fade time** a new value is **ignored** if the led is still fading
+     *  
+     *  Otherwise the fade is just reset and the led will start fading to the new brightness.
      *  
      *  @note To make all the fading work you need to call FadeLed::update() **often** in the loop()!
      *  

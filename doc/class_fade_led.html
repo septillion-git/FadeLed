@@ -463,8 +463,10 @@ static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class=
 </div><div class="memdoc">
 
 <p>Set the brightness to fade to. </p>
-<p>Set the brightness to which the led should fade to. If the led is still fading that fade is ended directly and the fade to the new value is started directly. To start fading after the current fade check if it's done via <a class="el" href="class_fade_led.html#a4111e85bcec6fc2b651c87733dcd5d2f" title="Returns if the led is done fading. ">done()</a></p>
-<p>In constant fade time the fade time is also reset. Even when the led was not done fading yet. So in constant fade time it will again take 'time' to reach the desired brightness.</p>
+<p>Set the brightness to which the led should fade to.</p>
+<p>In <b>constant fade speed</b> if the new value is in the same fading direction as were started and the value is not yet passed the fade just continues to the new value</p>
+<p>In <b>constant fade time</b> a new value is <b>ignored</b> if the led is still fading</p>
+<p>Otherwise the fade is just reset and the led will start fading to the new brightness.</p>
 <dl class="section note"><dt>Note</dt><dd>To make all the fading work you need to call <a class="el" href="class_fade_led.html#a90fa3c5bbf46dc3e75db1853849fff06" title="Updates all FadeLed objects. ">FadeLed::update()</a> <b>often</b> in the loop()!</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_fade_led.html#a4111e85bcec6fc2b651c87733dcd5d2f" title="Returns if the led is done fading. ">done()</a>, <a class="el" href="class_fade_led.html#a72479dc8ebd4136aaecf69fb02a9f335" title="Set the time a (full) fade will take. ">setTime()</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -473,6 +475,7 @@ static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class=
   </table>
   </dd>
 </dl>
+<p>edit 2016-11-17 Fix so you can set it to a new value while fading in constant speed. And impossible to set a new value in constant time.</p>
 
 </div>
 </div>
