@@ -281,6 +281,7 @@ class FadeLed{
     bool _constTime; //!< Constant time fade or just constant speed fade
     unsigned long _countMax; //!< The number of #_interval's a fade should take
     unsigned long _count; //!< The number of #_interval's passed
+    flvar_t _levelsAmount; //!< The number of input levels
     
     
     /**

@@ -8,7 +8,8 @@ FadeLed* FadeLed::_ledList[FADE_LED_MAX_LED];
 
 FadeLed::FadeLed(byte pin) :_count(0),
                             _countMax(40),
-                            _constTime(false){
+                            _constTime(false),
+                            _levelsAmount(FADE_LED_RESOLUTION){
   _pin = pin;
   
   //only add it if it fits
@@ -32,9 +33,18 @@ void FadeLed::set(flvar_t val){
    *  a new value in constant time.
    */
   if(_setVal != val){
-    //if iit's now fading we have to check how to change it
+    /** edit 2016-11-30
+     *  Fixed out of range possibility
+     */
+    //check for out of range
+    if(val > _levelsAmount){
+      //if bigger then allowed, use biggest value
+      val = _levelsAmount;
+    }    
+    
+    //if it's now fading we have to check how to change it
     if(!done()){
-      //setting new val while fading in constant time not possing
+      //setting new val while fading in constant time not possible
       if(_constTime){
         return;
       }
@@ -83,7 +93,7 @@ bool FadeLed::done(){
 }
 
 void FadeLed::on(){
-  this->set(FADE_LED_RESOLUTION);
+  this->set(_levelsAmount);
 }
 
 void FadeLed::off(){
@@ -91,7 +101,7 @@ void FadeLed::off(){
 }
 
 void FadeLed::beginOn(){
-  this->begin(FADE_LED_RESOLUTION);
+  this->begin(_levelsAmount);
 }
 
 void FadeLed::setTime(unsigned long time, bool constTime){
@@ -124,14 +134,14 @@ void FadeLed::updateThis(){
     }
     else{
       //for constant fade speed we add the full resolution over countMax steps
-      newVal = _startVal + _count * FADE_LED_RESOLUTION / _countMax;
+      newVal = _startVal + _count * _levelsAmount / _countMax;
     }
     
     //check if new
     if(newVal != _curVal){
       //check for overflow
       if(newVal < _curVal){
-        _curVal = FADE_LED_RESOLUTION;
+        _curVal = _levelsAmount;
       }
       //Check for overshoot
       else if(newVal > _setVal){
@@ -157,7 +167,7 @@ void FadeLed::updateThis(){
     }
     else{
       //for constant fade speed we subtract the full resolution over countMax steps
-      newVal = _startVal - _count * FADE_LED_RESOLUTION / _countMax;
+      newVal = _startVal - _count * _levelsAmount / _countMax;
     }
     
     //check if new
