@@ -122,6 +122,35 @@ void FadeLed::stop(){
   _setVal = _curVal;
 }
 
+void FadeLed::setGammaTable(const flvar_t* table, flvar_t biggestStep){
+  //stops the current fading for no funny things
+  stop();
+  
+  //Next time fade from 0
+  _setVal = 0;
+  _curVal = 0;
+  _count = 1;
+  
+  //Sets up the new gamma table
+  _gammaLookup = table;
+  _biggestStep = biggestStep;
+}
+
+void FadeLed::noGammaTable(){
+  setGammaTable(NULL, FADE_LED_RESOLUTION);
+}
+
+flvar_t FadeLed::getGammaValue(flvar_t step){
+  if(step > _biggestStep){
+    step = _biggestStep;
+  }
+  return FadeLed::getGamma(step);
+}
+
+flvar_t FadeLed::getBiggestStep(){
+  return _biggestStep;
+}
+
 void FadeLed::updateThis(){
   //need to fade up
   if(_curVal < _setVal){
@@ -194,35 +223,6 @@ void FadeLed::updateThis(){
 
 void FadeLed::setInterval(unsigned int interval){
   _interval = interval;
-}
-
-void FadeLed::setGammaTable(const flvar_t* table, flvar_t biggestStep){
-  //stops the current fading for no funny things
-  stop();
-  
-  //Next time fade from 0
-  _setVal = 0;
-  _curVal = 0;
-  _count = 1;
-  
-  //Sets up the new gamma table
-  _gammaLookup = table;
-  _biggestStep = biggestStep;
-}
-
-void FadeLed::noGammaTable(){
-  setGammaTable(NULL, FADE_LED_RESOLUTION);
-}
-
-flvar_t FadeLed::getGammaValue(flvar_t in){
-  if(in > _biggestStep){
-    in = _biggestStep;
-  }
-  return FadeLed::getGamma(in);
-}
-
-flvar_t FadeLed::getBiggestStep(){
-  return _biggestStep;
 }
 
 void FadeLed::update(){

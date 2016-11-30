@@ -56,7 +56,7 @@ typedef unsigned int flvar_t;
  *  
  *  Automatically set depending on #FADE_LED_PWM_BITS. 255 for 8-bit.
  *  
- *  @warning Can't simply be increased for more then 8-bit because byte type is used to pass brightness values!
+ *  @warning Can't simply be increased for resolution! It depends on the resolution of the hardware used. Set it using #FADE_LED_PWM_BITS.
  *  
  *  @see FADE_LED_PWM_BITS
  */
@@ -241,40 +241,6 @@ class FadeLed{
      */
     void stop();
     
-    
-    /**
-     *  @brief Updates all FadeLed objects
-     *  
-     *  @details This is the core function of FadeLed. Calling this function will check each object of FadeLed to see if the brightness needs changing (fade). 
-     *  
-     *  It's a static function, you only need to call is once for all objects of FadeLed. You can call it using the class name like:
-     *  
-     *  ```C++    
-     *  loop(){
-     *    FadeLed::update();
-     *  }
-     *  ```
-     *  
-     *  @note Call this function **often** in order not to skip steps. Make the code non-blocking aka **don't** use delay() anywhere! See [Blink Without Delay()](https://www.arduino.cc/en/Tutorial/BlinkWithoutDelay)
-     *  
-     */
-    static void update();
-    
-    /**
-     *  @brief Sets the interval at which to update the fading
-     *  
-     *  @details Only every interval when calling update() it's checked to see if the brightness of the leds needs to change (fade) to leave time for other stuff. 
-     *  
-     *  **default:** 50ms
-     *  
-     *  @warning Call this before setting a fading time (via setTime()). Changing the interval will change the fading time or **each** FadeLed object.
-     *  
-     *  @see setTime()
-     * 
-     *  @param [in] interval Interval in ms
-     */
-    static void setInterval(unsigned int interval);
-    
     /** 
      *  @brief Sets a Gamma table to use
      *  
@@ -314,12 +280,11 @@ class FadeLed{
      *  
      *  @details Let this object use no gamma correction and just use the full PWM range. 
      *  
-     *  It's short for setGammaTable(NULL, FADE_LED_RESOLUTION)
+     *  It's short for `setGammaTable(NULL, FADE_LED_RESOLUTION)`
      *  
-     *  @see setGammaTable()
+     *  @see setGammaTable(), FADE_LED_RESOLUTION
      */
     void noGammaTable();
-    
     
     /**
      *  @brief Get gamma corrected value
@@ -328,10 +293,10 @@ class FadeLed{
      *  
      *  @see getGamma()
      *  
-     *  @param [in] in The step to get the gamma corrected output level for. Limited to the biggest possible value
+     *  @param [in] step The step to get the gamma corrected output level for. Limited to the biggest possible value
      *  @return The gamma corrected output level if a gamma table is uses, otherwise it returns in.
      */
-    flvar_t getGammaValue(flvar_t in);
+    flvar_t getGammaValue(flvar_t step);
     
     /**
      *  @brief Get the biggest brightness step
@@ -342,6 +307,39 @@ class FadeLed{
      */
     flvar_t getBiggestStep();
     
+    
+    /**
+     *  @brief Updates all FadeLed objects
+     *  
+     *  @details This is the core function of FadeLed. Calling this function will check each object of FadeLed to see if the brightness needs changing (fade). 
+     *  
+     *  It's a static function, you only need to call is once for all objects of FadeLed. You can call it using the class name like:
+     *  
+     *  ```C++    
+     *  loop(){
+     *    FadeLed::update();
+     *  }
+     *  ```
+     *  
+     *  @note Call this function **often** in order not to skip steps. Make the code non-blocking aka **don't** use delay() anywhere! See [Blink Without Delay()](https://www.arduino.cc/en/Tutorial/BlinkWithoutDelay)
+     *  
+     */
+    static void update();
+    
+    /**
+     *  @brief Sets the interval at which to update the fading
+     *  
+     *  @details Only every interval when calling update() it's checked to see if the brightness of the leds needs to change (fade) to leave time for other stuff. 
+     *  
+     *  **default:** 50ms
+     *  
+     *  @warning Call this before setting a fading time (via setTime()). Changing the interval will change the fading time or **each** FadeLed object.
+     *  
+     *  @see setTime()
+     * 
+     *  @param [in] interval Interval in ms
+     */
+    static void setInterval(unsigned int interval);
     
   protected:
     byte _pin; //!< PWM pin to control
@@ -371,16 +369,18 @@ class FadeLed{
      *  
      *  @details Looks it up in the PROGMEM Gamma table for this object if table is assigned. Deals with the variable size used.
      *  
+     *  Can't be called directly (it's protected) but it's inline for speed. If you want to get a gamma value for a given step, use getGammaValue() instead.
+     *  
      *  @return Corresponding level for the given step. Returns in if no table is in use.
      *  
      *  @note Does **not** check for out of range! That's up to the caller. For that, use getGammaValue().
      *  
      *  @see getGammaValue() 
      *  
-     *  @param [in] in The step to get the gamma corrected output level for.
+     *  @param [in] step The step to get the gamma corrected output level for.
      *  @return The gamma corrected output level if a gamma table is uses, otherwise it returns in.
      */
-    flvar_t getGamma(flvar_t in);
+    flvar_t getGamma(flvar_t step);
     
     static FadeLed* _ledList[FADE_LED_MAX_LED]; //!< array of pointers to all FadeLed objects
     static byte _ledCount; //!< Next number of FadeLed object
@@ -388,12 +388,12 @@ class FadeLed{
     static unsigned int _millisLast; //!< Last time all FadeLed objects where updated
 };
 
-inline flvar_t FadeLed::getGamma(flvar_t in){
+inline flvar_t FadeLed::getGamma(flvar_t step){
   if(_gammaLookup == NULL){
-    return in;
+    return step;
   }
   else{
-    return pgm_read_byte_near(_gammaLookup + in);
+    return pgm_read_byte_near(_gammaLookup + step);
   }
 }
 
