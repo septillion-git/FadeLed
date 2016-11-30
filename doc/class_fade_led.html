@@ -405,7 +405,7 @@ static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class=
 </div><div class="memdoc">
 
 <p>Get the biggest brightness step. </p>
-<p>Gives the biggest brighness step for the gamma table in use. If no table is in use, it returns the biggest output level.</p>
+<p>Gives the biggest brightness step for the gamma table in use. If no table is in use, it returns the biggest output level.</p>
 <dl class="section return"><dt>Returns</dt><dd>Biggest brightness step </dd></dl>
 
 </div>
@@ -633,12 +633,12 @@ static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class=
 <div class="fragment"><div class="line">{C++}</div><div class="line"><span class="comment">//put gamma table in PROGMEM</span></div><div class="line"><span class="keyword">const</span> <a class="code" href="_fade_led_8h.html#a2f2f1e8f2c5c32ab025920d29b32fe9c">flvar_t</a> myGammaTable[20] PROGMEM = {....};</div><div class="line"></div><div class="line"><span class="comment">//link it to an object</span></div><div class="line"><span class="comment">//biggestStep is size - 1!</span></div><div class="line">led.setGammaTable(myGammaTable, 19)</div></div><!-- fragment --><p>Pointing to a NULL pointer will result in <b>no</b> gamma correction. biggestStep will then limit the brightness. But easier to use <a class="el" href="class_fade_led.html#a5f4886d769eefc0ffb7d0343b1205a7c" title="Use no gamma correction for full range. ">noGammaTable()</a>.</p>
 <div class="fragment"><div class="line">{C++}</div><div class="line"><span class="comment">//No gamma table, 8-bit PWM</span></div><div class="line">led.setGammaTable(NULL, 255);</div></div><!-- fragment --><p>It will <b>stop</b> the current fading. It also <b>resets</b> it to start from 0 for the next fade.</p>
 <p>If you want to fade from the current brightness with the new gamma table you have to find the starting value yourself and set it via <a class="el" href="class_fade_led.html#a60afbe2a1f1358df832cefea690e8fdf" title="Set a direct begin value to start at without fade. ">begin()</a>.</p>
-<p>By default a 101 steps (0-100 aka percentage) table is used with a Gamma of 2,3. To generate a table with a different gamma you can use the provided Python script. (You need to install Python for it to work!) Call it like: <code>python gamma.py Gamma Steps PWMbits [VariableName]</code>. VariableName is optional. For example <code>python gamma.py 2 50 10</code> will result in a table with 50 steps (0 - 49) with gamma = 2 for a 10-bit PWM. This will be stored in gamma.h and can be copy pasted into your code.</p>
+<p>By default a 101 steps (0-100 aka percentage) table is used with a Gamma of 2,3. To generate a table with a different gamma you can use the provided Python script. (You need to install Python for it to work!) Call it like: <code>python gamma.py Gamma Steps PWMbits [VariableName]</code>. VariableName is optional. For example <code>python gamma.py 2.5 50 10</code> will result in a table with 50 steps (0 - 49) with gamma = 2,5 for a 10-bit PWM. This will be stored in gamma.h and can be copy pasted into your code.</p>
 <dl class="section note"><dt>Note</dt><dd>It stops and resets but does <b>not</b> change the PWM output. This only gets changed after a new call to <a class="el" href="class_fade_led.html#ad97736b8e98dcae401a195e61dcc6d0b" title="Set the brightness to fade to. ">set()</a>, <a class="el" href="class_fade_led.html#a7737b34ffeb819ce5156a31aa10f49de" title="Fade to max brightness. ">on()</a>, <a class="el" href="class_fade_led.html#a02b736af264f7b502f7a7233a570955e" title="Fade to off. ">off()</a>, <a class="el" href="class_fade_led.html#a60afbe2a1f1358df832cefea690e8fdf" title="Set a direct begin value to start at without fade. ">begin()</a> or <a class="el" href="class_fade_led.html#aaa1e678c7f03e74eec89767ba409d1dd" title="Sets the start brightness directly to full. ">beginOn()</a>. If no action is taken a abrupt jump will happen if not at zero brightness.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">table</td><td>The gamma table in PROGMEM </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">biggestStep</td><td>The biggest step of that gamma table (aka size -1) If no parameter is used 100 is assumed to be the top value possibl. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">biggestStep</td><td>The biggest step of that gamma table (aka size -1) If no parameter is used 100 is assumed to be the top value possible. </td></tr>
   </table>
   </dd>
 </dl>

@@ -305,7 +305,7 @@ class FadeLed{
      *  @note It stops and resets but does **not** change the PWM output. This only gets changed after a new call to set(), on(), off(), begin() or beginOn(). If no action is taken a abrupt jump will happen if not at zero brightness.
      *  
      *  @param [in] table The gamma table in PROGMEM
-     *  @param [in] biggestStep The biggest step of that gamma table (aka size -1) If no parameter is used 100 is assumed to be the top value possibl.
+     *  @param [in] biggestStep The biggest step of that gamma table (aka size -1) If no parameter is used 100 is assumed to be the top value possible.
      */
     void setGammaTable(const flvar_t* table, flvar_t biggestStep = 100);
     
@@ -336,7 +336,7 @@ class FadeLed{
     /**
      *  @brief Get the biggest brightness step
      *  
-     *  @details Gives the biggest brighness step for the gamma table in use. If no table is in use, it returns the biggest output level.
+     *  @details Gives the biggest brightness step for the gamma table in use. If no table is in use, it returns the biggest output level.
      *  
      *  @return Biggest brightness step
      */
