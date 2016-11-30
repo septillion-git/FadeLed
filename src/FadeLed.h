@@ -287,8 +287,8 @@ class FadeLed{
     unsigned long _countMax; //!< The number of #_interval's a fade should take
     unsigned long _count; //!< The number of #_interval's passed
     const flvar_t* _gammaLookup;
-    flvar_t _gammaSteps;
-    
+    flvar_t _levelsAmount; //!< The number of input levels
+
     
     
     /**
