@@ -14,6 +14,8 @@
 #include "WProgram.h"
 #endif
 
+#include <avr/pgmspace.h>
+
 /**
  *  @brief Sets the number of bits used for the PWM.
  *  
@@ -40,7 +42,6 @@ typedef unsigned int flvar_t;
 #endif
 
 
-
 /**
  *  @brief Maximum number of FadeLed objects
  *  
@@ -62,6 +63,8 @@ typedef unsigned int flvar_t;
 #ifndef FADE_LED_RESOLUTION
 #define FADE_LED_RESOLUTION ((1 <<FADE_LED_PWM_BITS) -1)
 #endif
+
+#include "FadeLedGamma.h"
 
 /**
  *  @brief Main class of the FadeLed-library
@@ -272,6 +275,8 @@ class FadeLed{
      */
     static void setInterval(unsigned int interval);
     
+    flvar_t getGamma(flvar_t in);
+    
     
   protected:
     byte _pin; //!< PWM pin to control
@@ -281,6 +286,9 @@ class FadeLed{
     bool _constTime; //!< Constant time fade or just constant speed fade
     unsigned long _countMax; //!< The number of #_interval's a fade should take
     unsigned long _count; //!< The number of #_interval's passed
+    const flvar_t* _gammaLookup;
+    flvar_t _gammaSteps;
+    
     
     
     /**
@@ -293,11 +301,17 @@ class FadeLed{
      */
     void updateThis();
     
+    
+    
     static FadeLed* _ledList[FADE_LED_MAX_LED]; //!< array of pointers to all FadeLed objects
     static byte _ledCount; //!< Next number of FadeLed object
     static unsigned int _interval; //!< Interval (in ms) between updates
     static unsigned int _millisLast; //!< Last time all FadeLed objects where updated
 };
+
+inline flvar_t FadeLed::getGamma(flvar_t in){
+  return pgm_read_byte_near(_gammaLookup + in);
+}
 
 
 #endif

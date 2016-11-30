@@ -8,7 +8,9 @@ FadeLed* FadeLed::_ledList[FADE_LED_MAX_LED];
 
 FadeLed::FadeLed(byte pin) :_count(0),
                             _countMax(40),
-                            _constTime(false){
+                            _constTime(false),
+                            _gammaLookup(FadeLedGammaTable),
+                            _gammaSteps(101){
   _pin = pin;
   
   //only add it if it fits
@@ -59,7 +61,6 @@ void FadeLed::set(flvar_t val){
   
   
    /* Old code 2016-11-17
->>>>>>> origin/master
   if(_setVal != val){
     //save and reset counter
     _setVal = val;
@@ -204,3 +205,4 @@ void FadeLed::update(){
     }
   }
 }
+
