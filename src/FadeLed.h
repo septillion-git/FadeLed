@@ -393,7 +393,11 @@ inline flvar_t FadeLed::getGamma(flvar_t step){
     return step;
   }
   else{
-    return pgm_read_byte_near(_gammaLookup + step);
+    #if FADE_LED_PWM_BITS <= 8
+      return pgm_read_byte_near(_gammaLookup + step);
+    #else
+      return pgm_read_word_near(_gammaLookup + step);
+    #endif
   }
 }
 
