@@ -3,7 +3,7 @@ Makes fading leds on an Arduino easy.
 By Timo Engelgeer (Septillion)
 
 ***New in version v1.4.0:* Gamma correction.**
-As of version v1.4.0 the library fades with gamma correction. This is now the default behavior. This also sets the default range to 0 to 100 (instead of the old 0 to 255). So if you upgrade from an older version change the range in your sketch or disable it (`noGammaTable()`).
+As of version v1.4.0 the library fades with gamma correction. This is now the default behavior. This also sets the default range to 0 to 100 (instead of the old 0 to 255 for 8-bit). So if you upgrade from an older version change the range in your sketch or disable gamma correction (`noGammaTable()`).
 
 ##What does it do?
 Fading is easy right? But it can quickly become quite some code to do so. FadeLed does all the heavy lifting for you. It can fade every led on a *hardware* PWM pin (capable of `analogWrite()`) with gamma correction. Just make a FadeLed object for it, set the fade time and just set the brightness to fade to. You can let it fade to and from each brightness you like!
