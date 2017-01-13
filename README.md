@@ -23,7 +23,7 @@ The human eye doesn't respond linear to light. It's way more sensitive for small
 If desired, the gamma correction can be disabled per led. It's also possible to use a different gamma table then default (with a gamma of 2,3), even per led!
 
 ##Download and install
-Latest release: **[v1.3.0](https://github.com/septillion-git/FadeLed/archive/v1.3.0.zip)**
+Latest release: **[v1.4.0](https://github.com/septillion-git/FadeLed/archive/v1.4.0.zip)**
 
 1. Download the latest release.
 2. Extract it to the `libraries` folder **inside** your Sketchbook. Default is `[user]\Arduino\libraries`. 
