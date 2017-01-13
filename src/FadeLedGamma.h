@@ -1,7 +1,11 @@
 #ifndef _FADE_LED_GAMMA_H
 #define _FADE_LED_GAMMA_H
 
-#include <avr/pgmspace.h>
+#if defined ( ESP8266 )
+  #include <pgmspace.h>
+#else
+  #include <avr/pgmspace.h>
+#endif
 
 #if FADE_LED_PWM_BITS == 8
 /* 101-step brightness table: gamma = 2.3 for 8-bit PWM*/ 
