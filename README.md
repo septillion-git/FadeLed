@@ -2,9 +2,13 @@
 Makes fading leds on an Arduino easy.
 By Timo Engelgeer (Septillion)
 
-##What does it do?
-Fading is easy right? But it can quickly become quite some code to do so. FadeLed does all the heavy lifting for you. It can fade every led on a *hardware* PWM pin (capable of `analogWrite()`). Just make a FadeLed object for it, set the fade time and just set the brightness to fade to. You can let it fade to and from each brightness you like!
+***New in version v1.4.0:* Gamma correction.**
+As of version v1.4.0 the library fades with gamma correction. This is now the default behavior. This also sets the default range to 0 to 100 (instead of the old 0 to 255). So if you upgrade from an older version change the range in your sketch or disable it (`noGammaTable()`).
 
+##What does it do?
+Fading is easy right? But it can quickly become quite some code to do so. FadeLed does all the heavy lifting for you. It can fade every led on a *hardware* PWM pin (capable of `analogWrite()`) with gamma correction. Just make a FadeLed object for it, set the fade time and just set the brightness to fade to. You can let it fade to and from each brightness you like!
+
+###Fade modes
 FadeLed can fade in two modes, constant fade speed (default) and constant fade time. The mode can be selected for each led.
 
 ####Constant fade speed
@@ -13,8 +17,13 @@ This is the default mode. A led will fade with a constant speed. The time you se
 ####Constant fade time
 Each fade will now take the same amount of time. No matter if you fade the full scale or just just by 10 steps, it will take the same time. 
 
+###Gamma correction
+The human eye doesn't respond linear to light. It's way more sensitive for small changes in dim light then it is to small changes in bright light. To compensate for that FadeLed uses gamma correction tables. This gives a very natural feel to the dimming and fading. Even if you're not interested in fading you can use FadeLed to drive leds with gamma correction.
+
+If desired, the gamma correction can be disabled per led. It's also possible to use a different gamma table then default (with a gamma of 2,3), even per led!
+
 ##Download and install
-Latest release: **[v1.3.0](https://github.com/septillion-git/FadeLed/archive/v1.3.0.zip)**
+Latest release: **[v1.4.0](https://github.com/septillion-git/FadeLed/archive/v1.4.0.zip)**
 
 1. Download the latest release.
 2. Extract it to the `libraries` folder **inside** your Sketchbook. Default is `[user]\Arduino\libraries`. 

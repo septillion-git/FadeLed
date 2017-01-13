@@ -115,6 +115,8 @@ $(document).ready(function(){initNavTree('_fade_led_8h.html','');});
 <p>A simple Arduino library to fade leds on the hardware PWM.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;Arduino.h&quot;</code><br />
+<code>#include &lt;avr/pgmspace.h&gt;</code><br />
+<code>#include &quot;FadeLedGamma.h&quot;</code><br />
 </div>
 <p><a href="_fade_led_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -190,7 +192,7 @@ Typedefs</h2></td></tr>
 
 <p>The maximum brightness step of the PWM. </p>
 <p>Automatically set depending on <a class="el" href="_fade_led_8h.html#aa89d8155bdc3b567c8a37c4bdcc4b0dc" title="Sets the number of bits used for the PWM. ">FADE_LED_PWM_BITS</a>. 255 for 8-bit.</p>
-<dl class="section warning"><dt>Warning</dt><dd>Can't simply be increased for more then 8-bit because byte type is used to pass brightness values!</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Can't simply be increased for resolution! It depends on the resolution of the hardware used. Set it using <a class="el" href="_fade_led_8h.html#aa89d8155bdc3b567c8a37c4bdcc4b0dc" title="Sets the number of bits used for the PWM. ">FADE_LED_PWM_BITS</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="_fade_led_8h.html#aa89d8155bdc3b567c8a37c4bdcc4b0dc" title="Sets the number of bits used for the PWM. ">FADE_LED_PWM_BITS</a> </dd></dl>
 
 </div>

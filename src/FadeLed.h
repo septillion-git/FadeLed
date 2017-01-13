@@ -14,6 +14,12 @@
 #include "WProgram.h"
 #endif
 
+#if defined ( ESP8266 )
+  #include <pgmspace.h>
+#else
+  #include <avr/pgmspace.h>
+#endif
+
 /**
  *  @brief Sets the number of bits used for the PWM.
  *  
@@ -40,7 +46,6 @@ typedef unsigned int flvar_t;
 #endif
 
 
-
 /**
  *  @brief Maximum number of FadeLed objects
  *  
@@ -55,13 +60,15 @@ typedef unsigned int flvar_t;
  *  
  *  Automatically set depending on #FADE_LED_PWM_BITS. 255 for 8-bit.
  *  
- *  @warning Can't simply be increased for more then 8-bit because byte type is used to pass brightness values!
+ *  @warning Can't simply be increased for resolution! It depends on the resolution of the hardware used. Set it using #FADE_LED_PWM_BITS.
  *  
  *  @see FADE_LED_PWM_BITS
  */
 #ifndef FADE_LED_RESOLUTION
 #define FADE_LED_RESOLUTION ((1 <<FADE_LED_PWM_BITS) -1)
 #endif
+
+#include "FadeLedGamma.h"
 
 /**
  *  @brief Main class of the FadeLed-library
@@ -238,6 +245,72 @@ class FadeLed{
      */
     void stop();
     
+    /** 
+     *  @brief Sets a Gamma table to use
+     *  
+     *  @details Let this FadeLed object use a specific Gamma table. This table **must** be put in PROGMEM to work. #flvar_t can be used as variable type to get a variable type that matches the (set) bit resolution of the PWM.
+     *  
+     *  ```C++
+     *  //put gamma table in PROGMEM
+     *  const flvar_t myGammaTable[20] PROGMEM = {....};
+     *  
+     *  //link it to an object
+     *  //biggestStep is size - 1!
+     *  led.setGammaTable(myGammaTable, 19)
+     *  ```
+     *  
+     *  Pointing to a NULL pointer will result in **no** gamma correction. biggestStep will then limit the brightness. But easier to use noGammaTable().
+     *  
+     *  ```C++
+     *  //No gamma table, 8-bit PWM
+     *  led.setGammaTable(NULL, 255);
+     *  ```
+     *  
+     *  It will **stop** the current fading. It also **resets** it to start from 0 for the next fade. 
+     *  
+     *  If you want to fade from the current brightness with the new gamma table you have to find the starting value yourself and set it via begin().
+     *  
+     *  By default a 101 steps (0-100 aka percentage) table is used with a Gamma of 2,3. To generate a table with a different gamma you can use the provided Python script. (You need to install Python for it to work!) Call it like: `python gamma.py Gamma Steps PWMbits [VariableName]`. VariableName is optional. For example `python gamma.py 2.5 50 10` will result in a table with 50 steps (0 - 49) with gamma = 2,5 for a 10-bit PWM. This will be stored in gamma.h and can be copy pasted into your code.
+     *  
+     *  @note It stops and resets but does **not** change the PWM output. This only gets changed after a new call to set(), on(), off(), begin() or beginOn(). If no action is taken a abrupt jump will happen if not at zero brightness.
+     *  
+     *  @param [in] table The gamma table in PROGMEM
+     *  @param [in] biggestStep The biggest step of that gamma table (aka size -1) If no parameter is used 100 is assumed to be the top value possible.
+     */
+    void setGammaTable(const flvar_t* table, flvar_t biggestStep = 100);
+    
+    /**
+     *  @brief Use no gamma correction for full range
+     *  
+     *  @details Let this object use no gamma correction and just use the full PWM range. 
+     *  
+     *  It's short for `setGammaTable(NULL, FADE_LED_RESOLUTION)`
+     *  
+     *  @see setGammaTable(), FADE_LED_RESOLUTION
+     */
+    void noGammaTable();
+    
+    /**
+     *  @brief Get gamma corrected value
+     *  
+     *  @details Gives the gamma corrected output level. Checks for the biggest possible step.
+     *  
+     *  @see getGamma()
+     *  
+     *  @param [in] step The step to get the gamma corrected output level for. Limited to the biggest possible value
+     *  @return The gamma corrected output level if a gamma table is uses, otherwise it returns in.
+     */
+    flvar_t getGammaValue(flvar_t step);
+    
+    /**
+     *  @brief Get the biggest brightness step
+     *  
+     *  @details Gives the biggest brightness step for the gamma table in use. If no table is in use, it returns the biggest output level.
+     *  
+     *  @return Biggest brightness step
+     */
+    flvar_t getBiggestStep();
+    
     
     /**
      *  @brief Updates all FadeLed objects
@@ -272,7 +345,6 @@ class FadeLed{
      */
     static void setInterval(unsigned int interval);
     
-    
   protected:
     byte _pin; //!< PWM pin to control
     flvar_t _setVal; //!< The brightness to which last set to fade to
@@ -281,6 +353,9 @@ class FadeLed{
     bool _constTime; //!< Constant time fade or just constant speed fade
     unsigned long _countMax; //!< The number of #_interval's a fade should take
     unsigned long _count; //!< The number of #_interval's passed
+    const flvar_t* _gammaLookup; //!< Pointer to the Gamma table in PROGMEM
+    flvar_t _biggestStep; //!< The biggest input step possible
+
     
     
     /**
@@ -293,11 +368,41 @@ class FadeLed{
      */
     void updateThis();
     
+    /**
+     *  @Brief Gives the output level for a given Gamma step
+     *  
+     *  @details Looks it up in the PROGMEM Gamma table for this object if table is assigned. Deals with the variable size used.
+     *  
+     *  Can't be called directly (it's protected) but it's inline for speed. If you want to get a gamma value for a given step, use getGammaValue() instead.
+     *  
+     *  @return Corresponding level for the given step. Returns in if no table is in use.
+     *  
+     *  @note Does **not** check for out of range! That's up to the caller. For that, use getGammaValue().
+     *  
+     *  @see getGammaValue() 
+     *  
+     *  @param [in] step The step to get the gamma corrected output level for.
+     *  @return The gamma corrected output level if a gamma table is uses, otherwise it returns in.
+     */
+    flvar_t getGamma(flvar_t step);
+    
     static FadeLed* _ledList[FADE_LED_MAX_LED]; //!< array of pointers to all FadeLed objects
     static byte _ledCount; //!< Next number of FadeLed object
     static unsigned int _interval; //!< Interval (in ms) between updates
     static unsigned int _millisLast; //!< Last time all FadeLed objects where updated
 };
 
+inline flvar_t FadeLed::getGamma(flvar_t step){
+  if(_gammaLookup == NULL){
+    return step;
+  }
+  else{
+    #if FADE_LED_PWM_BITS <= 8
+      return pgm_read_byte_near(_gammaLookup + step);
+    #else
+      return pgm_read_word_near(_gammaLookup + step);
+    #endif
+  }
+}
 
 #endif

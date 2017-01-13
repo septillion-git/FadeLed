@@ -8,7 +8,9 @@ FadeLed* FadeLed::_ledList[FADE_LED_MAX_LED];
 
 FadeLed::FadeLed(byte pin) :_count(0),
                             _countMax(40),
-                            _constTime(false){
+                            _constTime(false),
+                            _gammaLookup(FadeLedGammaTable),
+                            _biggestStep(100){
   _pin = pin;
   
   //only add it if it fits
@@ -21,7 +23,7 @@ void FadeLed::begin(flvar_t val){
   //set to both so no fading happens
   _setVal = val;
   _curVal = val;
-  analogWrite(this->_pin, _curVal);
+  analogWrite(this->_pin, getGamma(_curVal));
 }
 
 void FadeLed::set(flvar_t val){
@@ -32,9 +34,18 @@ void FadeLed::set(flvar_t val){
    *  a new value in constant time.
    */
   if(_setVal != val){
-    //if iit's now fading we have to check how to change it
+    /** edit 2016-11-30
+     *  Fixed out of range possibility
+     */
+    //check for out of range
+    if(val > _biggestStep){
+      //if bigger then allowed, use biggest value
+      val = _biggestStep;
+    }    
+    
+    //if it's now fading we have to check how to change it
     if(!done()){
-      //setting new val while fading in constant time not possing
+      //setting new val while fading in constant time not possible
       if(_constTime){
         return;
       }
@@ -59,7 +70,6 @@ void FadeLed::set(flvar_t val){
   
   
    /* Old code 2016-11-17
->>>>>>> origin/master
   if(_setVal != val){
     //save and reset counter
     _setVal = val;
@@ -83,7 +93,7 @@ bool FadeLed::done(){
 }
 
 void FadeLed::on(){
-  this->set(FADE_LED_RESOLUTION);
+  this->set(_biggestStep);
 }
 
 void FadeLed::off(){
@@ -91,7 +101,7 @@ void FadeLed::off(){
 }
 
 void FadeLed::beginOn(){
-  this->begin(FADE_LED_RESOLUTION);
+  this->begin(_biggestStep);
 }
 
 void FadeLed::setTime(unsigned long time, bool constTime){
@@ -112,6 +122,35 @@ void FadeLed::stop(){
   _setVal = _curVal;
 }
 
+void FadeLed::setGammaTable(const flvar_t* table, flvar_t biggestStep){
+  //stops the current fading for no funny things
+  stop();
+  
+  //Next time fade from 0
+  _setVal = 0;
+  _curVal = 0;
+  _count = 1;
+  
+  //Sets up the new gamma table
+  _gammaLookup = table;
+  _biggestStep = biggestStep;
+}
+
+void FadeLed::noGammaTable(){
+  setGammaTable(NULL, FADE_LED_RESOLUTION);
+}
+
+flvar_t FadeLed::getGammaValue(flvar_t step){
+  if(step > _biggestStep){
+    step = _biggestStep;
+  }
+  return FadeLed::getGamma(step);
+}
+
+flvar_t FadeLed::getBiggestStep(){
+  return _biggestStep;
+}
+
 void FadeLed::updateThis(){
   //need to fade up
   if(_curVal < _setVal){
@@ -124,14 +163,14 @@ void FadeLed::updateThis(){
     }
     else{
       //for constant fade speed we add the full resolution over countMax steps
-      newVal = _startVal + _count * FADE_LED_RESOLUTION / _countMax;
+      newVal = _startVal + _count * _biggestStep / _countMax;
     }
     
     //check if new
     if(newVal != _curVal){
       //check for overflow
       if(newVal < _curVal){
-        _curVal = FADE_LED_RESOLUTION;
+        _curVal = _biggestStep;
       }
       //Check for overshoot
       else if(newVal > _setVal){
@@ -142,7 +181,7 @@ void FadeLed::updateThis(){
         _curVal = newVal;
       }
           
-      analogWrite(this->_pin, _curVal);
+      analogWrite(this->_pin, getGamma(_curVal) );
     }
     _count++;
   }
@@ -157,7 +196,7 @@ void FadeLed::updateThis(){
     }
     else{
       //for constant fade speed we subtract the full resolution over countMax steps
-      newVal = _startVal - _count * FADE_LED_RESOLUTION / _countMax;
+      newVal = _startVal - _count * _biggestStep / _countMax;
     }
     
     //check if new
@@ -175,7 +214,7 @@ void FadeLed::updateThis(){
         _curVal = newVal;
       }
           
-      analogWrite(this->_pin, _curVal);
+      analogWrite(this->_pin, getGamma(_curVal) );
     }
     _count++;
   }
@@ -204,3 +243,4 @@ void FadeLed::update(){
     }
   }
 }
+
