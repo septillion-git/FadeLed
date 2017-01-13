@@ -20,6 +20,8 @@ Each fade will now take the same amount of time. No matter if you fade the full 
 ###Gamma correction
 The human eye doesn't respond linear to light. It's way more sensitive for small changes in dim light then it is to small changes in bright light. To compensate for that FadeLed uses gamma correction tables. This gives a very natural feel to the dimming and fading. Even if you're not interested in fading you can use FadeLed to drive leds with gamma correction.
 
+If desired, the gamma correction can be disabled per led. It's also possible to use a different gamma table then default (with a gamma of 2,3), even per led!
+
 ##Download and install
 Latest release: **[v1.3.0](https://github.com/septillion-git/FadeLed/archive/v1.3.0.zip)**
 
