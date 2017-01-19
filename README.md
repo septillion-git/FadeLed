@@ -81,6 +81,8 @@ Other useful methods of the library include `.on()`, `.off()`, `.done()`, `.get(
 ##Full documentation
 Full documentation of all the methods of this library can be found inside the library located in `FadeLed\doc`. Just open `FadeLed\doc\index.html` to see all methods of FadeLed. 
 
+You can also view the documentation via GitHub HTML Preview](https://htmlpreview.github.io/?https://github.com/septillion-git/FadeLed/blob/v1.4.0/doc/index.html).
+
 This documentation is powered by [Doxygen](http://www.doxygen.org/) and thus fully extracted from the source files. This readme.md is also used as Main Page.
 
 ##FAQ
