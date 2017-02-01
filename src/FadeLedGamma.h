@@ -7,6 +7,8 @@
   #include <avr/pgmspace.h>
 #endif
 
+const flvar_t* const FadeLedNoGamma = NULL;
+
 #if FADE_LED_PWM_BITS == 8
 /* 101-step brightness table: gamma = 2.3 for 8-bit PWM*/ 
 const uint8_t FadeLedGammaTable[101] PROGMEM = {
