@@ -1,8 +1,8 @@
 /**
  *  @file FadeLed.h
- *  @brief A simple Arduino library to fade leds on the hardware PWM.
+ *  @brief A simple Arduino library to fade LEDs on the hardware PWM.
  *  
- *  This library takes all the heavy lifting of fading a led. 
+ *  This library takes all the heavy lifting of fading a LED. 
  */
 
 #ifndef _FADE_LED_H
@@ -35,7 +35,7 @@
 /**
  *  @brief Sets the variable type used for the brightness.
  *  
- *  Is done automatically according to #FADE_LED_PWM_BITS. A byte (uint8_t) is used for 8-bit or less. A unsigned int (uint16_t) is used for anything above. So limited to 16-bit PWM.
+ *  Is done automatically according to #FADE_LED_PWM_BITS. A byte (uint8_t) is used for 8-bit or less. An unsigned int (uint16_t) is used for anything above. So limited to 16-bit PWM.
  *  
  *  @see FADE_LED_PWM_BITS
  */
@@ -49,7 +49,7 @@ typedef unsigned int flvar_t;
 /**
  *  @brief Maximum number of FadeLed objects
  *  
- *  **Default** = 6, the number of hardware PWM pins on a Uno/Pro Mini/Nano
+ *  **Default** = 6, the number of hardware PWM pins on an Uno/Pro Mini/Nano
  */
 #ifndef FADE_LED_MAX_LED
 #define FADE_LED_MAX_LED  6
@@ -73,7 +73,7 @@ typedef unsigned int flvar_t;
 /**
  *  @brief Main class of the FadeLed-library
  *  
- *  The FadeLed class includes all the functions to easily fade a led including a static function to update all constructed FadeLed objects.
+ *  The FadeLed class includes all the functions to easily fade a LED including a static function to update all constructed FadeLed objects.
  *  
  *  @see set(), update()
  */
@@ -99,7 +99,7 @@ class FadeLed{
     /**
      *  @brief Set a direct begin value to start at without fade
      *  
-     *  @details If you want to directly start the led at a certain brightness you can set it with this. This will directly set the brightness without fading.
+     *  @details If you want to directly start the LED at a certain brightness you can set it with this. This will directly set the brightness without fading.
      *  
      *  @note You can also use this to set a brightness without fading
      *  
@@ -112,13 +112,13 @@ class FadeLed{
     /**
      *  @brief Set the brightness to fade to
      *  
-     *  @details Set the brightness to which the led should fade to. 
+     *  @details Set the brightness to which the LED should fade to. 
      *  
      *  In **constant fade speed** if the new value is in the same fading direction as were started and the value is not yet passed the fade just continues to the new value
      *  
-     *  In **constant fade time** a new value is **ignored** if the led is still fading
+     *  In **constant fade time** a new value is **ignored** if the LED is still fading
      *  
-     *  Otherwise the fade is just reset and the led will start fading to the new brightness.
+     *  Otherwise the fade is just reset and the LED will start fading to the new brightness.
      *  
      *  @note To make all the fading work you need to call FadeLed::update() **often** in the loop()!
      *  
@@ -148,25 +148,25 @@ class FadeLed{
      *  
      *  @see get()
      *  
-     *  @return Current brightness of the led.
+     *  @return Current brightness of the LED.
      */
     flvar_t getCurrent();
     
     /**
-     *  @brief Returns if the led is done fading
+     *  @brief Returns if the LED is done fading
      *  
-     *  @details **true** if the led is done fading and reached the set() value.
+     *  @details **true** if the LED is done fading and reached the set() value.
      *  
      *  **false** if it's still fading
      *  
-     *  @return If the led is fading or not
+     *  @return If the LED is fading or not
      */
     bool done();
     
     /**
      *  @brief Fade to max brightness
      *  
-     *  @details Sets the led to fade to max brightness. Same as calling `set(255)`
+     *  @details Sets the LED to fade to max brightness. Same as calling `set(255)`
      *  
      *  @see set()
      *  
@@ -176,7 +176,7 @@ class FadeLed{
     /**
      *  @brief Fade to off
      *  
-     *  @details Sets the led to fade to off. Same as calling `set(0)`
+     *  @details Sets the LED to fade to off. Same as calling `set(0)`
      *  
      *  @see set()
      *  
@@ -203,7 +203,7 @@ class FadeLed{
      *  In constant fade speed this is the time a fade from off to full brightness (or vice versa) will take. A fade of less will go with the same speed but will take less time
      *  
      *  **Constant fade time**\n
-     *  In constant fade time this is the time each fade will take. No matter how much change in brightness. Each call to set() will reset the fading time and it will fade from it's current brightness to the new brightness in this time. Useful for example if you want to fade a RGB led from one color to another in a set time. No matter the level of the individual RGB colors. 
+     *  In constant fade time this is the time each fade will take. No matter how much change in brightness. Each call to set() will reset the fading time and it will fade from it's current brightness to the new brightness in this time. Useful for example if you want to fade a RGB LED from one color to another in a set time. No matter the level of the individual RGB colors. 
      *  
      *  @note If you want to change the update interval (setInterval()) do that before calling setTime(). The fade time is calculated using the interval.
      *  
@@ -215,24 +215,24 @@ class FadeLed{
     void setTime(unsigned long time, bool constTime = false);
     
     /**
-     *  @brief Returns if the led is still fading up
+     *  @brief Returns if the LED is still fading up
      *  
      *  @details **true** if fading up. 
      *  
      *  **false** otherwise
      *  
-     *  @return if the led is fading up
+     *  @return if the LED is fading up
      */
     bool rising();
     
         /**
-     *  @brief Returns if the led is still fading down
+     *  @brief Returns if the LED is still fading down
      *  
      *  @details **true** if fading down. 
      *  
      *  **false** otherwise
      *  
-     *  @return if the led is fading down
+     *  @return if the LED is fading down
      */
     bool falling();
     
@@ -246,9 +246,9 @@ class FadeLed{
     void stop();
     
     /** 
-     *  @brief Sets a Gamma table to use
+     *  @brief Sets a gamma table to use
      *  
-     *  @details Let this FadeLed object use a specific Gamma table. This table **must** be put in PROGMEM to work. #flvar_t can be used as variable type to get a variable type that matches the (set) bit resolution of the PWM.
+     *  @details Let this FadeLed object use a specific gamma table. This table **must** be put in PROGMEM to work. #flvar_t can be used as variable type to get a variable type that matches the (set) bit resolution of the PWM.
      *  
      *  ```C++
      *  //put gamma table in PROGMEM
@@ -270,9 +270,9 @@ class FadeLed{
      *  
      *  If you want to fade from the current brightness with the new gamma table you have to find the starting value yourself and set it via begin().
      *  
-     *  By default a 101 steps (0-100 aka percentage) table is used with a Gamma of 2,3. To generate a table with a different gamma you can use the provided Python script. (You need to install Python for it to work!) Call it like: `python gamma.py Gamma Steps PWMbits [VariableName]`. VariableName is optional. For example `python gamma.py 2.5 50 10` will result in a table with 50 steps (0 - 49) with gamma = 2,5 for a 10-bit PWM. This will be stored in gamma.h and can be copy pasted into your code.
+     *  By default a 101 steps (0-100 aka percentage) table is used with a gamma of 2,3. To generate a table with a different gamma you can use the provided Python script. (You need to install Python for it to work!) Call it like: `python gamma.py Gamma Steps PWMbits [VariableName]`. VariableName is optional. For example `python gamma.py 2.5 50 10` will result in a table with 50 steps (0 - 49) with gamma = 2,5 for a 10-bit PWM. This will be stored in gamma.h and can be copy pasted into your code.
      *  
-     *  @note It stops and resets but does **not** change the PWM output. This only gets changed after a new call to set(), on(), off(), begin() or beginOn(). If no action is taken a abrupt jump will happen if not at zero brightness.
+     *  @note It stops and resets but does **not** change the PWM output. This only gets changed after a new call to set(), on(), off(), begin() or beginOn(). If no action is taken an abrupt jump will happen if not at zero brightness.
      *  
      *  @param [in] table The gamma table in PROGMEM
      *  @param [in] biggestStep The biggest step of that gamma table (aka size -1) If no parameter is used 100 is assumed to be the top value possible.
@@ -298,7 +298,7 @@ class FadeLed{
      *  @see getGamma()
      *  
      *  @param [in] step The step to get the gamma corrected output level for. Limited to the biggest possible value
-     *  @return The gamma corrected output level if a gamma table is uses, otherwise it returns in.
+     *  @return The gamma corrected output level if a gamma table is used, otherwise it returns in.
      */
     flvar_t getGammaValue(flvar_t step);
     
@@ -317,7 +317,7 @@ class FadeLed{
      *  
      *  @details This is the core function of FadeLed. Calling this function will check each object of FadeLed to see if the brightness needs changing (fade). 
      *  
-     *  It's a static function, you only need to call is once for all objects of FadeLed. You can call it using the class name like:
+     *  It's a static function, you only need to call it once for all objects of FadeLed. You can call it using the class name like:
      *  
      *  ```C++    
      *  loop(){
@@ -333,7 +333,7 @@ class FadeLed{
     /**
      *  @brief Sets the interval at which to update the fading
      *  
-     *  @details Only every interval when calling update() it's checked to see if the brightness of the leds needs to change (fade) to leave time for other stuff. 
+     *  @details Only every interval when calling update() it's checked to see if the brightness of the LEDs needs to change (fade) to leave time for other stuff. 
      *  
      *  **default:** 50ms
      *  
@@ -369,9 +369,9 @@ class FadeLed{
     void updateThis();
     
     /**
-     *  @Brief Gives the output level for a given Gamma step
+     *  @Brief Gives the output level for a given gamma step
      *  
-     *  @details Looks it up in the PROGMEM Gamma table for this object if table is assigned. Deals with the variable size used.
+     *  @details Looks it up in the PROGMEM gamma table for this object if table is assigned. Deals with the variable size used.
      *  
      *  Can't be called directly (it's protected) but it's inline for speed. If you want to get a gamma value for a given step, use getGammaValue() instead.
      *  
@@ -382,7 +382,7 @@ class FadeLed{
      *  @see getGammaValue() 
      *  
      *  @param [in] step The step to get the gamma corrected output level for.
-     *  @return The gamma corrected output level if a gamma table is uses, otherwise it returns in.
+     *  @return The gamma corrected output level if a gamma table is used, otherwise it returns in.
      */
     flvar_t getGamma(flvar_t step);
     
