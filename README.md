@@ -23,6 +23,17 @@ The human eye doesn't respond linearly to light. It's way more sensitive for sma
 If desired, the gamma correction can be disabled per LED. It's also possible to use a different gamma table than default (with a gamma of 2,3), even per LED!
 
 ##Download and install
+###Library manager
+FadeLed is available via Arduino IDE Library Manager.
+
+1.  Open the Arduino IDE (1.5 or above).
+2.  In the tool-bar click Sketch -> Include Library -> Manage Libraries...
+3.  Type in the search bar "FadeLed".
+4.  The latest version of FadeLed should show.
+5.  Click on it and click Install.
+6.  Done!
+
+###GitHub
 Latest release: **[v1.4.1](https://github.com/septillion-git/FadeLed/archive/v1.4.1.zip)**
 
 1. Download the latest release.
@@ -30,6 +41,18 @@ Latest release: **[v1.4.1](https://github.com/septillion-git/FadeLed/archive/v1.
 3. Rename the folder to `FadeLed` (remove version number).
 4. Restart the Arduino IDE if you had it open.
 5. Done!
+
+###Update
+You can update to the latest version of the library in the Library Manager as well. 
+
+1.  Open the Arduino IDE (1.5 or above).
+2.  In the tool-bar click Sketch -> Include Library -> Manage Libraries...
+3.  Type in the search bar "FadeLed".
+4.  The latest version of FadeLed should show.
+5.  Click on it and click Update.
+6.  Done!
+
+Alternatively you can download it from GitHub and simply unpack it over the current version (or remove the old version first).
 
 ##Usage
 ###FadeLed-object
