@@ -48,7 +48,7 @@ You can update to the latest version of the library in the Library Manager as we
 1.  Open the Arduino IDE (1.5 or above).
 2.  In the tool-bar click Sketch -> Include Library -> Manage Libraries...
 3.  Type in the search bar "FadeLed".
-4.  The latest version of FadeLed should show.
+4.  The FadeLed library should show.
 5.  Click on it and click Update.
 6.  Done!
 
