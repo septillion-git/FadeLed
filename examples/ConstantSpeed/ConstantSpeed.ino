@@ -5,21 +5,21 @@
  *  @brief Show difference between constant fade speed and constant fade time
  *  
  *  This is an example to show the difference between constant fade 
- *  speed (default) and constant fade time. Both leds will just fade up and 
+ *  speed (default) and constant fade time. Both LEDs will just fade up and 
  *  down to halve brightness with the same time set. One with constant fade 
  *  speed, one with constant fade time.
  *  
  *  pin 5: Constant fade speed
- *  This led will fade with constant fade speed. The time set is the time it
+ *  This LED will fade with constant fade speed. The time set is the time it
  *  takes between off and full brightness (or vice versa). So when fading
  *  by less then all the steps (255) it's finished in less time. For 
  *  example, fading to halve brightness will also take have the time.
  *  
  *  pin 6: Constant fade time
- *  This led will fade with constant fade time. The time set is the time it
+ *  This LED will fade with constant fade time. The time set is the time it
  *  takes for one fade, no matter the values from/to it fades. For example,
  *  a fade between off and full brightness will take the same time as a fade 
- *  from off to 100. Usefull for example if you want to fade a RGB led from 
+ *  from off to 100. Useful for example if you want to fade a RGB LED from 
  *  one color to another in a set time, no matter the levels of the 
  *  individual colors.
  */
@@ -29,11 +29,11 @@
 //gives the number of elements in an array
 #define elements(x) sizeof(x)/sizeof(x[0])
 
-//make two FadeLed objecs for pin 5 (leds[0]) and pin 6 (leds[1])
+//make two FadeLed objects for pin 5 (leds[0]) and pin 6 (leds[1])
 FadeLed leds[] = {5, 6};
 
 void setup() {
-  //set the interval (ms) between led updates
+  //set the interval (ms) between LED updates
   //it's the same for all FadeLed objects
   //call BEFORE setTime() otherwise the time calculation is wrong
   //default is 50ms (gives 20 updates a second)
@@ -56,7 +56,7 @@ void loop() {
   //mussed be called often to make it work
   FadeLed::update();
   
-  //Want to do the same for all leds so we'll loop over all elements of leds
+  //Want to do the same for all LEDs so we'll loop over all elements of LEDs
   for(byte i = 0; i < elements(leds); i++){
     //to see if it's done fading we can check .done()
     if(leds[i].done()){
@@ -71,7 +71,7 @@ void loop() {
       //or we are at 0
       else{
         //then we're done fading down, let's fade up again to halve brightness
-        leds[i].set(127);
+        leds[i].set(50);
       }
     }
   }

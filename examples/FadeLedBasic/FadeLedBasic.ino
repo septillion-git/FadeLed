@@ -4,7 +4,7 @@
  *  @date 2016-08-11
  *  @brief Example how to use FadeLed library
  *  
- *  This is an example how to use FadeLed library. It will fade two leds
+ *  This is an example how to use FadeLed library. It will fade two LEDs
  *  in two different ways on two different pins.
  *  
  *  pin 5
@@ -14,16 +14,16 @@
  *  pin 6
  *  Will fade up/down every 5 seconds. It will begin turned on at
  *  full brightness. If will fade up in 4 seconds and down in 2 seconds.
- *  A led at pin 12 and pin 13 will indicate if the led on pin 6 is 
+ *  A LED at pin 12 and pin 13 will indicate if the LED on pin 6 is 
  *  fading down or up correspondingly.
  */
 
 #include <FadeLed.h>
 
-//make two FadeLed objecs for pin 5 (leds[0]) and pin 6 (leds[1])
+//make two FadeLed objects for pin 5 (leds[0]) and pin 6 (leds[1])
 FadeLed leds[2] = {5, 6};
 
-//it doesn't need to be an array, you can also make seperate named objects
+//it doesn't need to be an array, you can also make separate named objects
 //still all updated with FadeLed::update()
 
 //we turn this pin on will leds[1] is fading down
@@ -38,7 +38,7 @@ void setup() {
   pinMode(FadeDownPin, OUTPUT);
   pinMode(FadeUpPin, OUTPUT);
   
-  //set the interval (ms) between led updates
+  //set the interval (ms) between LED updates
   //it's the same for all FadeLed objects
   //call BEFORE setTime() otherwise the time calculation is wrong
   //default is 50ms (gives 20 updates a second)
@@ -50,15 +50,15 @@ void setup() {
   
   //We fade it to halve brightness
   //so will take 5 seconds
-  leds[0].set(127);
+  leds[0].set(50);
   
   //leds[1] will use the default fade time of 2 seconds
   //leds[1].setTime(2000);
   
-  //We turn this led fully on directly (without fading) now
+  //We turn this LED fully on directly (without fading) now
   leds[1].beginOn();
-  //is the same as
-  //leds[1].begin(255);
+  //is the same as (100 is max brightness with default gamma correction)
+  //leds[1].begin(100);
   
   //and we let it fade to off for now
   leds[1].off();
@@ -68,11 +68,11 @@ void setup() {
 
 void loop() {
   // main function call to update all fadeLeds
-  //mussed be called often to make it work
+  //must be called often to make it work
   FadeLed::update();
   
   //we let leds[0] fade up and down all the time
-  //up to halve brightness (127)
+  //up to halve brightness (50 for default gamma table)
   //to see if it's done fading we can check .done()
   if(leds[0].done()){
     //.get() will return the current brightness
@@ -84,7 +84,7 @@ void loop() {
     //or we are at 0
     else{
       //then we are done fading down, let's fade up again
-      leds[0].set(127);
+      leds[0].set(50);
     }
   }
   
@@ -96,29 +96,27 @@ void loop() {
   if(millis() - millisLast > 5000){
     millisLast = millis();
     
-    //if led is not off (.get() returns something bigger then 0)
+    //if LED is not off (.get() returns something bigger then 0 which gives true)
     if(leds[1].get()){
       //we set the fading time to 2 seconds
       leds[1].setTime(2000);
       //and start to fade off
       leds[1].off();
     }
-    //if the led is off
+    //if the LED is off
     else{
       //we set the fading time to 4 seconds
       leds[1].setTime(4000);
       //and start to fade to full brightness
       leds[1].on();
-      //same as
-      //leds[1].set(255);
+      //same as (100 is max brightness with default gamma correction)
+      //leds[1].set(100);
     }
   }
   
-  //.falling() will be true/HIGH while the led is fading down
-  //.rising() will be true/HIGH while the led is fading up
-  //we can use this to trigger actions like turning on another led while fading up/down
+  //.falling() will be true/HIGH while the LED is fading down
+  //.rising() will be true/HIGH while the LED is fading up
+  //we can use this to trigger actions like turning on another LED while fading up/down
   digitalWrite(FadeDownPin, leds[1].falling());
   digitalWrite(FadeUpPin, leds[1].rising());
-  
-  
 }

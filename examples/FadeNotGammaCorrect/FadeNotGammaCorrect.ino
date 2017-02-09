@@ -6,7 +6,7 @@
  *  
  *  This is an example to show the difference between fading with gamma correction (default) and fading without. With gamma correction will give you a more natural fading.
  *  
- *  By default a 101 step (0 to 100 aka percentage) with a gamma 2,3 is used.
+ *  By default a 101 step (0 to 100 for full brightness aka percentage) with a gamma 2,3 is used. If no gamma correction is used the range is the full PWM range. For 8-bit (Arduino Uno, Nano, Pro Mini, Mega etc) that gives a range of 0 to 255.
  *  
  *  pin 5
  *  Will fade up and down with gamma correction (default) in 5 seconds
@@ -17,10 +17,10 @@
 
 #include <FadeLed.h>
 
-//make two FadeLed objecs for pin 5 (leds[0]) and pin 6 (leds[1])
+//make two FadeLed objects for pin 5 (leds[0]) and pin 6 (leds[1])
 FadeLed leds[2] = {5, 6};
 
-//it doesn't need to be an array, you can also make seperate named objects
+//it doesn't need to be an array, you can also make separate named objects
 //still all updated with FadeLed::update()
 
 void setup() {
@@ -32,7 +32,7 @@ void setup() {
   //for led[1] no gamma correction is used
   leds[1].noGammaTable();
   
-  //both leds will take 5 seconds to fade from 0 to max.
+  //both LEDs will take 5 seconds to fade from 0 to max.
   leds[0].setTime(5000);
   leds[1].setTime(5000);
   
@@ -44,10 +44,10 @@ void setup() {
 
 void loop() {
   // main function call to update all fadeLeds
-  //mussed be called often to make it work
+  //must be called often to make it work
   FadeLed::update();
   
-  //we let both leds fade up and down all the time
+  //we let both LEDs fade up and down all the time
   //to see if it's done fading we can check .done()
   //Because they fade simultaneously in the same time only led[0] is checked
   if(leds[0].done()){

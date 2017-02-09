@@ -2,13 +2,13 @@
  *  @file
  *  @Author Septillion (https://github.com/sseptillion)
  *  @date 2016-08-17
- *  @brief Example how to use FadeLed to set the brightness of a led with a button
+ *  @brief Example how to use FadeLed to set the brightness of a LED with a button
  *  
  *  This example requires the Bounce2 library (https://github.com/thomasfredericks/Bounce2)
  *  
- *  This shows how you can make a led which you can fade up and down to set the desired brightness. The brightness will keep fading up and down as long as the button is pressed and will stop at the current brightness once the button is released. Fading will start in opposite direction is the button is pressed again.
+ *  This shows how you can make a LED which you can fade up and down to set the desired brightness. The brightness will keep fading up and down as long as the button is pressed and will stop at the current brightness once the button is released. Fading will start in opposite direction is the button is pressed again.
  *  
- *  Pin 5 is used for the led
+ *  Pin 5 is used for the LED
  *  
  *  Pin 4 is used for a button. Connect a push button between this pin and GND.
  *  
@@ -17,7 +17,7 @@
 #include <FadeLed.h>
 #include <Bounce2.h>
 
-//the RGB led
+//the RGB LED
 FadeLed led(5);
 
 //Which way did we fade last?
