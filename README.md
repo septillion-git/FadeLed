@@ -160,12 +160,13 @@ void loop() {
 ### I have a device with more than 8-bit PWM
 Simply change the macro FADE_LED_PWM_BITS in FadeLed.h to the number of bits your device has. 
 
-For example for a ESP8266 with 10-bit PWM:
+For example for a with 10-bit PWM:
 ```C++
+//Change this to match the number of PWM bit on other devices
 #define FADE_LED_PWM_BITS 10
 ```
 
-Would like to automate this in the future depending on the device used.
+Selection is only automated for ESP8266. Would like to automate this in the future for more devices.
 
 ### Nothing changes when I call FadeLed.set() in constant fade time
 Calling FadeLed.set() is ignored while the LED is still fading in **constant fade time** (not in constant fade speed). Wait until it's done (check FadeLed.done() ) or call FadeLed.stop() to stop at the current brightness after which you can set a new brightness to fade to.
