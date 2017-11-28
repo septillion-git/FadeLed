@@ -6,11 +6,43 @@ unsigned int FadeLed::_millisLast = 0;
 byte FadeLed::_ledCount = 0;
 FadeLed* FadeLed::_ledList[FADE_LED_MAX_LED];
 
-FadeLed::FadeLed(byte pin) :_count(0),
-                            _countMax(40),
-                            _constTime(false),
-                            _gammaLookup(FadeLedGammaTable),
-                            _biggestStep(100){
+FadeLed::FadeLed(byte pin) :
+  _count(0),
+  _countMax(40),
+  _constTime(false),
+  _gammaLookup(FadeLedGammaTable),
+  _biggestStep(100)
+{
+  _pin = pin;
+  
+  //only add it if it fits
+  if(_ledCount < FADE_LED_MAX_LED){
+    _ledList[_ledCount++] = this;
+  }
+}
+
+FadeLed::FadeLed(byte pin, flvar_t* gammaLookup, flvar_t biggestStep) :
+  _count(0),
+  _countMax(40),
+  _constTime(false),
+  _gammaLookup(gammaLookup),
+  _biggestStep(biggestStep)
+{
+  _pin = pin;
+  
+  //only add it if it fits
+  if(_ledCount < FADE_LED_MAX_LED){
+    _ledList[_ledCount++] = this;
+  }
+}
+
+FadeLed::FadeLed(byte pin, flvar_t* gammaLookup) :
+  _count(0),
+  _countMax(40),
+  _constTime(false),
+  _gammaLookup(NULL),
+  _biggestStep(FADE_LED_RESOLUTION)
+{
   _pin = pin;
   
   //only add it if it fits
