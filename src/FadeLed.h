@@ -40,9 +40,9 @@
  *  @see FADE_LED_PWM_BITS
  */
 #if FADE_LED_PWM_BITS <= 8
-typedef byte flvar_t;
+typedef uint8_t flvar_t;
 #else
-typedef unsigned int flvar_t;
+typedef uint16_t flvar_t;
 #endif
 
 
@@ -95,6 +95,10 @@ class FadeLed{
      *  @see update(), set(), on(), off()
      */
     FadeLed(byte pin);
+    
+    FadeLed(byte pin, const flvar_t* gammaLookup, flvar_t biggestStep);
+    
+    FadeLed(byte pin, bool hasGammaTable);
     
     /**
      *  @brief Set a direct begin value to start at without fade
@@ -259,11 +263,11 @@ class FadeLed{
      *  led.setGammaTable(myGammaTable, 19)
      *  ```
      *  
-     *  Pointing to a NULL pointer will result in **no** gamma correction. biggestStep will then limit the brightness. But easier to use noGammaTable().
+     *  Pointing to a nullptr will result in **no** gamma correction. biggestStep will then limit the brightness. But easier to use noGammaTable().
      *  
      *  ```C++
      *  //No gamma table, 8-bit PWM
-     *  led.setGammaTable(NULL, 255);
+     *  led.setGammaTable(nullptr, 255);
      *  ```
      *  
      *  It will **stop** the current fading. It also **resets** it to start from 0 for the next fade. 
@@ -284,7 +288,7 @@ class FadeLed{
      *  
      *  @details Let this object use no gamma correction and just use the full PWM range. 
      *  
-     *  It's short for `setGammaTable(NULL, FADE_LED_RESOLUTION)`
+     *  It's short for `setGammaTable(nullptr, FADE_LED_RESOLUTION)`
      *  
      *  @see setGammaTable(), FADE_LED_RESOLUTION
      */
@@ -346,7 +350,7 @@ class FadeLed{
     static void setInterval(unsigned int interval);
     
   protected:
-    byte _pin; //!< PWM pin to control
+    const byte _pin; //!< PWM pin to control
     flvar_t _setVal; //!< The brightness to which last set to fade to
     flvar_t _startVal; //!< The brightness at which the new fade needs to start
     flvar_t _curVal; //!< Current brightness
@@ -393,7 +397,7 @@ class FadeLed{
 };
 
 inline flvar_t FadeLed::getGamma(flvar_t step){
-  if(_gammaLookup == NULL){
+  if(_gammaLookup == nullptr){
     return step;
   }
   else{

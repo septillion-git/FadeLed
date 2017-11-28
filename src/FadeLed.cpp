@@ -7,47 +7,32 @@ byte FadeLed::_ledCount = 0;
 FadeLed* FadeLed::_ledList[FADE_LED_MAX_LED];
 
 FadeLed::FadeLed(byte pin) :
-  _count(0),
-  _countMax(40),
-  _constTime(false),
-  _gammaLookup(FadeLedGammaTable),
-  _biggestStep(100)
+  FadeLed(pin, FadeLedGammaTable, 100)
 {
-  _pin = pin;
   
-  //only add it if it fits
-  if(_ledCount < FADE_LED_MAX_LED){
-    _ledList[_ledCount++] = this;
-  }
 }
 
-FadeLed::FadeLed(byte pin, flvar_t* gammaLookup, flvar_t biggestStep) :
+FadeLed::FadeLed(byte pin, const flvar_t* gammaLookup, flvar_t biggestStep) :
+  _pin(pin),
   _count(0),
   _countMax(40),
+  //_countMax(2000 / _interval),
   _constTime(false),
   _gammaLookup(gammaLookup),
   _biggestStep(biggestStep)
-{
-  _pin = pin;
-  
+{  
   //only add it if it fits
   if(_ledCount < FADE_LED_MAX_LED){
     _ledList[_ledCount++] = this;
   }
 }
 
-FadeLed::FadeLed(byte pin, flvar_t* gammaLookup) :
-  _count(0),
-  _countMax(40),
-  _constTime(false),
-  _gammaLookup(NULL),
-  _biggestStep(FADE_LED_RESOLUTION)
-{
-  _pin = pin;
-  
-  //only add it if it fits
-  if(_ledCount < FADE_LED_MAX_LED){
-    _ledList[_ledCount++] = this;
+FadeLed::FadeLed(byte pin, bool hasGammaTable) :
+  FadeLed(pin, nullptr, FADE_LED_RESOLUTION)
+{  
+  if(hasGammaTable){
+    _gammaLookup = FadeLedGammaTable;
+    _biggestStep = 100;
   }
 }
 
@@ -169,7 +154,7 @@ void FadeLed::setGammaTable(const flvar_t* table, flvar_t biggestStep){
 }
 
 void FadeLed::noGammaTable(){
-  setGammaTable(NULL, FADE_LED_RESOLUTION);
+  setGammaTable(nullptr, FADE_LED_RESOLUTION);
 }
 
 flvar_t FadeLed::getGammaValue(flvar_t step){
