@@ -254,7 +254,7 @@ void FadeLed::update(){
      *  Fix issue #13
      *  Weird fade when not calling update() while not fading     
      */
-    if(_millisNow - _millisLast > (_interval << 1){
+    if(millisNow - _millisLast > (_interval << 1)){
       _millisLast = millisNow;
     }
     else{
