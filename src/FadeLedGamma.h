@@ -11,7 +11,7 @@ const flvar_t* const FadeLedNoGamma = nullptr;
 
 #if FADE_LED_PWM_BITS == 8
 /* 101-step brightness table: gamma = 2.3 for 8-bit PWM*/ 
-const uint8_t FadeLedGammaTable[101] PROGMEM = {
+const flvar_t FadeLedGammaTable[101] PROGMEM = {
 	0, 1, 1, 1, 1, 2, 2, 2,
 	3, 3, 4, 4, 5, 5, 6, 7,
 	7, 8, 9, 10, 11, 12, 13, 14,
@@ -29,7 +29,7 @@ const uint8_t FadeLedGammaTable[101] PROGMEM = {
 
 #elif FADE_LED_PWM_BITS == 9
 /* 101-step brightness table: gamma = 2.3 for 9-bit PWM*/ 
-const uint16_t FadeLedGammaTable[101] PROGMEM = {
+const flvar_t FadeLedGammaTable[101] PROGMEM = {
 	0, 1, 1, 1, 2, 2, 3, 3,
 	4, 5, 6, 7, 8, 9, 10, 11,
 	13, 14, 16, 17, 19, 21, 22, 24,
@@ -47,7 +47,7 @@ const uint16_t FadeLedGammaTable[101] PROGMEM = {
 
 #elif FADE_LED_PWM_BITS == 10
 /* 101-step brightness table: gamma = 2.3 for 10-bit PWM*/ 
-const uint16_t FadeLedGammaTable[101] PROGMEM = {
+const flvar_t FadeLedGammaTable[101] PROGMEM = {
 	0, 1, 1, 1, 2, 3, 4, 5,
 	6, 7, 9, 10, 12, 14, 16, 19,
 	21, 24, 26, 29, 33, 36, 39, 43,
@@ -65,7 +65,7 @@ const uint16_t FadeLedGammaTable[101] PROGMEM = {
 
 #elif FADE_LED_PWM_BITS == 11
 /* 101-step brightness table: gamma = 2.3 for 11-bit PWM*/ 
-const uint16_t FadeLedGammaTable[101] PROGMEM = {
+const flvar_t FadeLedGammaTable[101] PROGMEM = {
 	0, 1, 1, 2, 3, 4, 6, 8,
 	10, 12, 15, 18, 21, 25, 29, 33,
 	38, 43, 48, 54, 60, 67, 73, 81,
@@ -83,7 +83,7 @@ const uint16_t FadeLedGammaTable[101] PROGMEM = {
 
 #elif FADE_LED_PWM_BITS == 12
 /* 101-step brightness table: gamma = 2.3 for 12-bit PWM*/ 
-const uint16_t FadeLedGammaTable[101] PROGMEM = {
+const flvar_t FadeLedGammaTable[101] PROGMEM = {
 	0, 1, 2, 4, 6, 9, 12, 15,
 	20, 24, 30, 36, 43, 50, 58, 66,
 	76, 86, 97, 108, 120, 133, 147, 161,
@@ -101,7 +101,7 @@ const uint16_t FadeLedGammaTable[101] PROGMEM = {
 
 #elif FADE_LED_PWM_BITS == 13
 /* 101-step brightness table: gamma = 2.3 for 13-bit PWM*/ 
-const uint16_t FadeLedGammaTable[101] PROGMEM = {
+const flvar_t FadeLedGammaTable[101] PROGMEM = {
 	0, 1, 3, 5, 8, 12, 18, 24,
 	31, 40, 50, 61, 73, 87, 102, 118,
 	136, 155, 176, 198, 221, 246, 273, 301,
@@ -119,7 +119,7 @@ const uint16_t FadeLedGammaTable[101] PROGMEM = {
 
 #elif FADE_LED_PWM_BITS == 14
 /* 101-step brightness table: gamma = 2.3 for 14-bit PWM*/ 
-const uint16_t FadeLedGammaTable[101] PROGMEM = {
+const flvar_t FadeLedGammaTable[101] PROGMEM = {
 	0, 2, 5, 10, 16, 25, 35, 48,
 	63, 80, 100, 122, 147, 174, 204, 237,
 	272, 310, 351, 395, 442, 492, 545, 601,
@@ -137,7 +137,7 @@ const uint16_t FadeLedGammaTable[101] PROGMEM = {
 
 #elif FADE_LED_PWM_BITS == 15
 /* 101-step brightness table: gamma = 2.3 for 15-bit PWM*/ 
-const uint16_t FadeLedGammaTable[101] PROGMEM = {
+const flvar_t FadeLedGammaTable[101] PROGMEM = {
 	0, 1, 4, 10, 20, 33, 51, 72,
 	98, 129, 164, 204, 250, 300, 356, 417,
 	484, 557, 635, 719, 809, 905, 1007, 1115,
@@ -155,7 +155,7 @@ const uint16_t FadeLedGammaTable[101] PROGMEM = {
 
 #elif FADE_LED_PWM_BITS == 16
 /* 101-step brightness table: gamma = 2.3 for 16-bit PWM*/ 
-const uint16_t FadeLedGammaTable[101] PROGMEM = {
+const flvar_t FadeLedGammaTable[101] PROGMEM = {
 	0, 2, 8, 21, 40, 67, 101, 145,
 	197, 258, 328, 409, 500, 601, 712, 835,
 	968, 1113, 1269, 1437, 1617, 1810, 2014, 2231,
