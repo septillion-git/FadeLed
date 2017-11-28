@@ -1,6 +1,8 @@
 var class_fade_led =
 [
     [ "FadeLed", "class_fade_led.html#a308e1bd9531e4fa2179b10bef306b023", null ],
+    [ "FadeLed", "class_fade_led.html#a6ee793fc4115fcfacff2d1c5c5e2c2c9", null ],
+    [ "FadeLed", "class_fade_led.html#aa8aa8bc8cf6c89bcb392c744396219e3", null ],
     [ "begin", "class_fade_led.html#a60afbe2a1f1358df832cefea690e8fdf", null ],
     [ "beginOn", "class_fade_led.html#aaa1e678c7f03e74eec89767ba409d1dd", null ],
     [ "done", "class_fade_led.html#a4111e85bcec6fc2b651c87733dcd5d2f", null ],
@@ -31,7 +33,7 @@ var class_fade_led =
     [ "_ledCount", "class_fade_led.html#a0671cf7bb2fcce089f8c4b65f0c50fc0", null ],
     [ "_ledList", "class_fade_led.html#adbc0512d73c3b35c63c0ebe2c237d453", null ],
     [ "_millisLast", "class_fade_led.html#ab55143c1140e15aee2a4ccc1528f596f", null ],
-    [ "_pin", "class_fade_led.html#a379690719abd41cb19e312ef839cbe7b", null ],
+    [ "_pin", "class_fade_led.html#ac71c0c950a0dc1cb7258011f9ff91a8e", null ],
     [ "_setVal", "class_fade_led.html#ac888a15049f4cc623b136dc9276fc7be", null ],
     [ "_startVal", "class_fade_led.html#a668e70336a1774911a6ba6827eb5879e", null ]
 ];

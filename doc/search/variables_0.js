@@ -10,7 +10,7 @@ var searchData=
   ['_5fledcount',['_ledCount',['../class_fade_led.html#a0671cf7bb2fcce089f8c4b65f0c50fc0',1,'FadeLed']]],
   ['_5fledlist',['_ledList',['../class_fade_led.html#adbc0512d73c3b35c63c0ebe2c237d453',1,'FadeLed']]],
   ['_5fmillislast',['_millisLast',['../class_fade_led.html#ab55143c1140e15aee2a4ccc1528f596f',1,'FadeLed']]],
-  ['_5fpin',['_pin',['../class_fade_led.html#a379690719abd41cb19e312ef839cbe7b',1,'FadeLed']]],
+  ['_5fpin',['_pin',['../class_fade_led.html#ac71c0c950a0dc1cb7258011f9ff91a8e',1,'FadeLed']]],
   ['_5fsetval',['_setVal',['../class_fade_led.html#ac888a15049f4cc623b136dc9276fc7be',1,'FadeLed']]],
   ['_5fstartval',['_startVal',['../class_fade_led.html#a668e70336a1774911a6ba6827eb5879e',1,'FadeLed']]]
 ];

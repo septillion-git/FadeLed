@@ -80,7 +80,7 @@ typedef uint16_t flvar_t;
 class FadeLed{
   public:
     /**
-     *  @brief Constructor of a FadeLed object
+     *  @brief Simple constructor of a FadeLed object with gamma correction.
      *  
      *  @details Makes a object to fade a specific pin. You can make a object for each PWM pin you want to fade. Updating all objects is done by simply calling update()
      *  
@@ -92,12 +92,42 @@ class FadeLed{
      *  
      *  @param [in] pin The PWM pin to fade with this object
      *  
-     *  @see update(), set(), on(), off()
+     *  @see FadeLed(byte, const flvar_t*, flvar_t), update(), set(), on(), off()
      */
     FadeLed(byte pin);
     
+    /**
+     *  @brief Constructor of a FadeLed object
+     *  
+     *  @details Makes a object to fade a specific pin. You can make a object for each PWM pin you want to fade. Updating all objects is done by simply calling update()
+     *  
+     *  When created the default brightness is **0**. You can start at a different brightness by calling begin().
+     *  
+     *  With this constructor you can supply your own gamma table as gammaLookup. This must be an array of type flvar_t and should be placed in **PROGMEM**. Specify the largest steps in that table as biggestStep.
+     *  
+     *  
+     *  @note Make all objects global (or static if you really must) because a destruct will lead to errors!
+     *  
+     *  @warning Don't make two objects for the same pin, they will conflict!
+     *  
+     *  @param [in] pin         The PWM pin to fade with this object
+     *  @param [in] gammaLookup Gamma table
+     *  @param [in] biggestStep The largest possible value of the gamma table (gammaLookup).
+     *  
+     *  @see FadeLed(byte), FadeLed(byte, bool), update(), set(), on(), off()
+     */
     FadeLed(byte pin, const flvar_t* gammaLookup, flvar_t biggestStep);
     
+    /**
+     *  @brief Simple constructor of a FadeLed object
+     *  
+     *  @details Simalair to FadeLed(byte) but with the possibility to disable the use of a gamma table by specifying false as hasGammaTable.
+     *  
+     *  @param [in] pin           The PWM pin to fade with this object
+     *  @param [in] hasGammaTable **false** to disable the use of a gamma table, **true** to use the default gamma table.
+     *  
+     *  @see FadeLed(byte)
+     */
     FadeLed(byte pin, bool hasGammaTable);
     
     /**
