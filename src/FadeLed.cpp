@@ -269,9 +269,16 @@ void FadeLed::update(){
   }
   
   if(millisNow - _millisLast > _interval){
-    //_millisLast = millisNow;
-    //more accurate:
-    _millisLast += _interval;
+    /**
+     *  Fix issue #13
+     *  Weird fade when not calling update() while not fading     
+     */
+    if(_millisNow - _millisLast > (_interval << 1){
+      _millisLast = millisNow;
+    }
+    else{
+      _millisLast += _interval;
+    }
         
     //update every object
     for(byte i = 0; i < _ledCount; i++){
