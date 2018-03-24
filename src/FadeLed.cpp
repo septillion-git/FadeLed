@@ -36,6 +36,17 @@ FadeLed::FadeLed(byte pin, bool hasGammaTable) :
   }
 }
 
+FadeLed::~FadeLed(){
+  byte posThis=0;
+  while(posThis<_ledCount && _ledList[posThis]!=this)posThis++;
+
+  if(posThis==_ledCount) return;
+
+  for(byte j=posThis;j<_ledCount-1;j++) _ledList[j]=_ledList[j+1];
+
+  _ledCount--;
+}
+
 void FadeLed::begin(flvar_t val){
   //set to both so no fading happens
   _setVal = val;

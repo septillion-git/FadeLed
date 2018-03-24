@@ -138,6 +138,13 @@ class FadeLed{
     FadeLed(byte pin, bool hasGammaTable);
     
     /**
+     *  @brief Simple destructor of a FadeLed object
+     *  
+     *  @details Destroy your FadeLed object
+     */
+    ~FadeLed();
+
+    /**
      *  @brief Set a direct begin value to start at without fade
      *  
      *  @details If you want to directly start the LED at a certain brightness you can set it with this. This will directly set the brightness without fading.
