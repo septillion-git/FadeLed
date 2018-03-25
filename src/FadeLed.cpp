@@ -37,14 +37,22 @@ FadeLed::FadeLed(byte pin, bool hasGammaTable) :
 }
 
 FadeLed::~FadeLed(){
+  //Find current possition of this object
   byte posThis=0;
-  while(posThis<_ledCount && _ledList[posThis]!=this)posThis++;
-
-  if(posThis==_ledCount) return;
-
-  for(byte j=posThis;j<_ledCount-1;j++) _ledList[j]=_ledList[j+1];
-
+  while((posThis < _ledCount) && (_ledList[posThis] != this)){
+    posThis++;
+  }
+  
+  //if not in the list (how weird), it's done
+  if(posThis == _ledCount){
+    return;
+  }
+  
+  //Otherwise, delete this object by shifting in the rest
   _ledCount--;
+  for(byte i = posThis; i < _ledCount; i++){
+    _ledList[i] = _ledList[i + 1];
+  }
 }
 
 void FadeLed::begin(flvar_t val){

@@ -140,7 +140,7 @@ class FadeLed{
     /**
      *  @brief Simple destructor of a FadeLed object
      *  
-     *  @details Destroy your FadeLed object
+     *  @details Destroy your FadeLed object and removes it from the FadeLed::update() cycle.
      */
     ~FadeLed();
 
