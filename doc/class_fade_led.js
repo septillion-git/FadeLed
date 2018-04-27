@@ -3,6 +3,7 @@ var class_fade_led =
     [ "FadeLed", "class_fade_led.html#a308e1bd9531e4fa2179b10bef306b023", null ],
     [ "FadeLed", "class_fade_led.html#a6ee793fc4115fcfacff2d1c5c5e2c2c9", null ],
     [ "FadeLed", "class_fade_led.html#aa8aa8bc8cf6c89bcb392c744396219e3", null ],
+    [ "~FadeLed", "class_fade_led.html#a53efd1ba38a74975428c31325eada6d6", null ],
     [ "begin", "class_fade_led.html#a60afbe2a1f1358df832cefea690e8fdf", null ],
     [ "beginOn", "class_fade_led.html#aaa1e678c7f03e74eec89767ba409d1dd", null ],
     [ "done", "class_fade_led.html#a4111e85bcec6fc2b651c87733dcd5d2f", null ],
