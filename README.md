@@ -34,7 +34,7 @@ FadeLed is available via Arduino IDE Library Manager.
 6.  Done!
 
 ### GitHub
-Latest release: **[v1.4.1](https://github.com/septillion-git/FadeLed/archive/v1.4.1.zip)**
+Latest release: **[v1.5.0](https://github.com/septillion-git/FadeLed/archive/v1.5.0.zip)**
 
 1. Download the latest release.
 2. Extract it to the `libraries` folder **inside** your Sketchbook. Default is `[user]\Arduino\libraries`. 
@@ -104,7 +104,7 @@ Other useful methods of the library include `.on()`, `.off()`, `.done()`, `.get(
 ## Full documentation
 Full documentation of all the methods of this library can be found inside the library located in `FadeLed\doc`. Just open `FadeLed\doc\index.html` to see all methods of FadeLed. 
 
-You can also view the documentation via [GitHub HTML Preview](https://htmlpreview.github.io/?https://github.com/septillion-git/FadeLed/blob/v1.4.1/doc/index.html).
+You can also view the documentation via [GitHub HTML Preview](https://htmlpreview.github.io/?https://github.com/septillion-git/FadeLed/blob/v1.5.0/doc/index.html).
 
 This documentation is powered by [Doxygen](http://www.doxygen.org/) and thus fully extracted from the source files. This README.md is also used as Main Page.
 
