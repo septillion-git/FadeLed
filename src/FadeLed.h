@@ -324,7 +324,7 @@ class FadeLed{
      *  
      *  If you want to fade from the current brightness with the new gamma table you have to find the starting value yourself and set it via begin().
      *  
-     *  By default a 101 steps (0-100 aka percentage) table is used with a gamma of 2,3. To generate a table with a different gamma you can use the provided Python script. (You need to install Python for it to work!) Call it like: `python gamma.py Gamma Steps PWMbits [VariableName]`. VariableName is optional. For example `python gamma.py 2.5 50 10` will result in a table with 50 steps (0 - 49) with gamma = 2,5 for a 10-bit PWM. This will be stored in gamma.h and can be copy pasted into your code.
+     *  By default a 101 steps (0-100 aka percentage) table is used with a gamma of 2,3. To generate a table with a different gamma you can use the provided Python script ('FadeLed\extras\GammaTable.py'). (You need to install Python for it to work!) Call it like: `python GammaTable.py Gamma Steps PWMbits [VariableName]`. VariableName is optional. For example `python gamma.py 2.5 50 10` will result in a table with 50 steps (0 - 49) with gamma = 2,5 for a 10-bit PWM. This will be stored in gamma.h and can be copy pasted into your code.
      *  
      *  @note It stops and resets but does **not** change the PWM output. This only gets changed after a new call to set(), on(), off(), begin() or beginOn(). If no action is taken an abrupt jump will happen if not at zero brightness.
      *  
