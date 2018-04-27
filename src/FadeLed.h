@@ -110,18 +110,24 @@ class FadeLed{
      *  
      *  When created the default brightness is **0**. You can start at a different brightness by calling begin().
      *  
-     *  With this constructor you can supply your own gamma table as gammaLookup. This must be an array of type flvar_t and should be placed in **PROGMEM**. Specify the largest steps in that table as biggestStep.
+     *  With this constructor you can supply your own gamma table as gammaLookup. This must be an array of type flvar_t and should be placed in **PROGMEM**. Specify the largest steps in that table as biggestStep. For an example see the 'SineFade.ino' example in the examples folder.
      *  
+     *  ```C++
+     *  //put gamma table in PROGMEM
+     *  const flvar_t myGammaTable[20] PROGMEM = {....};
+     *  
+     *  FadeLed ledCustom = {Pin, myGammaTable, 19};
+     *  ```
      *  
      *  @note Make all objects global (or static if you really must) because a destruct will lead to errors!
      *  
      *  @warning Don't make two objects for the same pin, they will conflict!
      *  
      *  @param [in] pin         The PWM pin to fade with this object
-     *  @param [in] gammaLookup Gamma table
+     *  @param [in] gammaLookup Gamma table of type flvar_t in PROGMEM
      *  @param [in] biggestStep The largest possible value of the gamma table (gammaLookup).
      *  
-     *  @see FadeLed(byte), FadeLed(byte, bool), update(), set(), on(), off()
+     *  @see setGammaTable(), FadeLed(byte), FadeLed(byte, bool), update(), set(), on(), off()
      */
     FadeLed(byte pin, const flvar_t* gammaLookup, flvar_t biggestStep);
     
