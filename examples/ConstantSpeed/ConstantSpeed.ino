@@ -4,7 +4,7 @@
  *  @date 2016-08-12
  *  @brief Show difference between constant fade speed and constant fade time
  *  
- *  This is an example to show the difference between constant fade 
+ *  @details This is an example to show the difference between constant fade 
  *  speed (default) and constant fade time. Both LEDs will just fade up and 
  *  down to halve brightness with the same time set. One with constant fade 
  *  speed, one with constant fade time.

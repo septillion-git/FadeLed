@@ -4,7 +4,7 @@
  *  @date 2016-08-15
  *  @brief Example how to use FadeLed with RGB-fading
  *  
- *  This is an example how to use FadeLed library when fading RGB LEDs so 
+ *  @details This is an example how to use FadeLed library when fading RGB LEDs so 
  *  they fade smoothly from one color to another. Here we pick a random 
  *  new color every 10 seconds and LED the RGB led fade to the new color 
  *  in 5 seconds. 

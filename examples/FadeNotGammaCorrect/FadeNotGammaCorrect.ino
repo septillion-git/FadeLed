@@ -4,7 +4,7 @@
  *  @date 2016-1-30
  *  @brief Example to show the difference between fading with and without gamma correction.
  *  
- *  This is an example to show the difference between fading with gamma correction (default) and fading without. With gamma correction will give you a more natural fading.
+ *  @details This is an example to show the difference between fading with gamma correction (default) and fading without. With gamma correction will give you a more natural fading.
  *  
  *  By default a 101 step (0 to 100 for full brightness aka percentage) with a gamma 2,3 is used. If no gamma correction is used the range is the full PWM range. For 8-bit (Arduino Uno, Nano, Pro Mini, Mega etc) that gives a range of 0 to 255.
  *  

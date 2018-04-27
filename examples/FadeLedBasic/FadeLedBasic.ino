@@ -4,7 +4,7 @@
  *  @date 2016-08-11
  *  @brief Example how to use FadeLed library
  *  
- *  This is an example how to use FadeLed library. It will fade two LEDs
+ *  @details This is an example how to use FadeLed library. It will fade two LEDs
  *  in two different ways on two different pins.
  *  
  *  pin 5

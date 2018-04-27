@@ -4,7 +4,7 @@
  *  @date 2018-04-27
  *  @brief Example how to use FadeLed library with custom gamma table.
  *  
- *  This is an example how to use FadeLed library with custom gamma table.
+ *  @details This is an example how to use FadeLed library with custom gamma table.
  *  In this example it even uses a sinusoidal table. You're completely free how
  *  the graph should look like, simply define a value for each step.
  *  
