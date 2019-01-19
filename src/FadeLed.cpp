@@ -59,7 +59,7 @@ void FadeLed::begin(flvar_t val){
   //set to both so no fading happens
   _setVal = val;
   _curVal = val;
-  analogWrite(this->_pin, getGamma(_curVal));
+  setOutput();
 }
 
 void FadeLed::set(flvar_t val){
@@ -217,7 +217,7 @@ void FadeLed::updateThis(){
         _curVal = newVal;
       }
           
-      analogWrite(this->_pin, getGamma(_curVal) );
+      setOutput();
     }
     _count++;
   }
@@ -250,7 +250,7 @@ void FadeLed::updateThis(){
         _curVal = newVal;
       }
           
-      analogWrite(this->_pin, getGamma(_curVal) );
+      setOutput();
     }
     _count++;
   }

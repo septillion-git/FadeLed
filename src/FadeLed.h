@@ -14,7 +14,7 @@
 #include "WProgram.h"
 #endif
 
-#if defined ( ESP8266 )
+#if defined(ESP8266) || defined(ESP32)
   #include <pgmspace.h>
 #else
   #include <avr/pgmspace.h>
@@ -440,6 +440,13 @@ class FadeLed{
      */
     flvar_t getGamma(flvar_t step);
     
+    /**
+     *  @brief Set's the PWM duty cycle
+     *  
+     *  @details Wrapper for the correct function on different platforms
+     */
+    void setOutput();
+    
     static FadeLed* _ledList[FADE_LED_MAX_LED]; //!< array of pointers to all FadeLed objects
     static byte _ledCount; //!< Next number of FadeLed object
     static unsigned int _interval; //!< Interval (in ms) between updates
@@ -457,6 +464,14 @@ inline flvar_t FadeLed::getGamma(flvar_t step){
       return pgm_read_word_near(_gammaLookup + step);
     #endif
   }
+}
+
+inline void FadeLed::setOutput(){
+  #if defined(ESP32)
+    ledcWrite(_pin, getGamma(_curVal) );
+  #else 
+    analogWrite(_pin, getGamma(_curVal) );
+  #endif
 }
 
 #endif

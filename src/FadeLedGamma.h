@@ -1,7 +1,7 @@
 #ifndef _FADE_LED_GAMMA_H
 #define _FADE_LED_GAMMA_H
 
-#if defined ( ESP8266 )
+#if defined(ESP8266) || defined(ESP32)
   #include <pgmspace.h>
 #else
   #include <avr/pgmspace.h>
