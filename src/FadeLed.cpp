@@ -14,10 +14,10 @@ FadeLed::FadeLed(byte pin) :
 
 FadeLed::FadeLed(byte pin, const flvar_t* gammaLookup, flvar_t biggestStep) :
   _pin(pin),
-  _count(0),
+  _constTime(false),
   _countMax(40),
   //_countMax(2000 / _interval),
-  _constTime(false),
+  _count(0),
   _gammaLookup(gammaLookup),
   _biggestStep(biggestStep)
 {  
