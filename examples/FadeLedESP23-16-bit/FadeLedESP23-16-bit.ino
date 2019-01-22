@@ -7,24 +7,18 @@
  *  @details This is an example how to use FadeLed library on an ESP32. 
  *  
  *  It does the same as the FadeLedESP32 example only changes the PWM
- *  resolution to 16-bit instead of the default 10-bit. If this is done you
- *  need to include a 16-bit gamma correction table as well. This example
- *  shows you how to do so.
+ *  resolution to 16-bit instead of the default 10-bit. If you want to
+ *  use 16-bit (or anything other than the default 10-bit) you
+ *  have to link a correct gamma table yourself. This example shows how
+ *  you can use the default gamma = 2,3 tables supplied.
  *  
- *  The gamma table used here is generated with the supplied Python tool
- *  in extras\GammaTable.py. A 101 step (0 to 100) table is made for 16-bit
- *  PWM with a gamma of 2,5 for this example.
- *  
- *  The generated "gamma.h"-file is copied to the Sketch-folder.
- *  
- *  The Python scrips generates real gamma correction tables but you are
- *  free to generate any type of table you like!
+ *  The supplied tables are generates with the supplied GammaTable Python
+ *  script but you are free to generate any type of table you like! See for
+ *  example the SineFade-example.
  *  
  */
 
 #include <FadeLed.h>
-#include "gamma.h" //include the generated gamma
-
 
 //Use the LED_BUILTIN if it exists, if not pin 2 is used
 #if defined(LED_BUILTIN)
@@ -36,9 +30,12 @@ byte PwmCh = 0; //ledc channel to use for that
 
 //make a FadeLed object
 //on a ESP you assign FadeLed to a ledc channel rather than a pin
-//now point to the created table (myGammaTable)
-//and tell it what the biggest possible step is (100)
-FadeLed led(PwmCh, myGammaTable, 100);
+//Second argument is the gamma table. To use the default tables
+//just use FadeLedGammaTable[x] with [x] the number of bits for 
+//this ledc channel, e.g. FadeLedGammaTable16 for 16-bit.
+//Third argument is the biggest step in that table
+//The default tables are 0 to 100, hence 100.
+FadeLed led(PwmCh, FadeLedGammaTable16, 100);
 
 void setup(){
   //Setup ledc PWM on a ESP32
