@@ -29,8 +29,9 @@
  *  
  *  @warning Can't simply increase the number to have more PWM levels. It's limited to the hardware.
  */
- #if defined ( ESP8266 )
+ #if defined(ESP8266) || defined(ESP32)
   //ESP8266 has 10-bit PWM
+  //ESP32 supports up to 16-bit but will default to 10-bit like the ESP8266
   #define FADE_LED_PWM_BITS 10
 #else
   //Change this to match the number of PWM bit on other devices
