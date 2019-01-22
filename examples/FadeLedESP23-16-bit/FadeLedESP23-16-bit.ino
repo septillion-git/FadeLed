@@ -26,7 +26,12 @@
 #include "gamma.h" //include the generated gamma
 
 
-byte LedPin = LED_BUILTIN; //Pin to fade
+//Use the LED_BUILTIN if it exists, if not pin 2 is used
+#if defined(LED_BUILTIN)
+  byte LedPin = LED_BUILTIN; //Pin to fade
+#else
+  byte LedPin = 2; //Pin to fade
+#endif
 byte PwmCh = 0; //ledc channel to use for that
 
 //make a FadeLed object

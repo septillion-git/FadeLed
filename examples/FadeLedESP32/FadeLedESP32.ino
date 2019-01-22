@@ -8,7 +8,8 @@
  *  
  *  It will fade LED_BUILTIN up and down with a fade time of 5 seconds. Be sure
  *  to set the right board for the right LED_BUILTIN or change it to a pin
- *  you like (and have a led connected).
+ *  you like (and have a led connected). If the selected board has no
+ *  LED_BUILTIN, pin 2 is used. 
  *  
  *  The ledc functionality of the ESP32. You can use every pin you like,
  *  just assign it a unique ledc channel. channel 0 to 15 are available.
@@ -22,7 +23,12 @@
 
 #include <FadeLed.h>
 
-byte LedPin = LED_BUILTIN; //Pin to fade
+//Use the LED_BUILTIN if it exists, if not pin 2 is used
+#if defined(LED_BUILTIN)
+  byte LedPin = LED_BUILTIN; //Pin to fade
+#else
+  byte LedPin = 2; //Pin to fade
+#endif
 byte PwmCh = 0; //ledc channel to use for that
 
 //make a FadeLed object
