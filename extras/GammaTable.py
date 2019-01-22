@@ -22,6 +22,43 @@ def countZero(values):
     else:
       return count
 
+def intInput(str, default):
+  temp = None
+  while(not temp):
+    temp = input(str)
+    
+    if(temp == ''):
+      return default
+    elif(temp.isdigit() and int(temp) > 0):
+      return int(temp)
+    elif(temp.isdigit()):
+      temp = None
+      print("Enter a value >0")
+    else:
+      temp = None
+      print("Enter a value!")
+
+def floatInput(str, default):
+  temp = None
+  while(not temp):
+    temp = input(str)
+    
+    if(temp == ''):
+      return default;
+    else:
+      try:
+        temp = float(temp)
+      except ValueError:
+        temp = None
+          
+      if(temp is None):
+        print("Not a value! Try again.")
+      elif(temp > 0):
+        return temp
+      else:
+        temp = None
+        print("Enter value >0")
+
 if __name__ == "__main__":
   myGamma = 2.3
   stepsIn = 101
@@ -33,10 +70,16 @@ if __name__ == "__main__":
     stepsIn = int(sys.argv[2])
     bitOut = int(sys.argv[3])
     
-  if(len(sys.argv) >= 5):
+  elif(len(sys.argv) >= 5):
     varName = sys.argv[4]
-      
   
+  else:
+    print("Enter the desired parameters. Leaving it blank uses the default displayed in brackets")
+
+    myGamma = floatInput("Gamma value (" + str(myGamma) + "): ", myGamma)
+    stepsIn = intInput("Number of steps (" + str(stepsIn) + "): ", stepsIn)
+    bitOut = intInput("Number of PWM bits (" + str(bitOut) + "): ", bitOut)
+    
   output = open("gamma.h", "w")
   output.write("/* %d-step brightness table: gamma = %s for %d-bit PWM*/ \n" % (stepsIn, myGamma, bitOut))
   bitVar = int( (7 + bitOut) / 8) * 8
@@ -55,7 +98,7 @@ if __name__ == "__main__":
   print(values)
 
   for index, value in enumerate(values, 1):
-    output.write("%3i" % value)
+    output.write("%5i" % value)
     if(index != len(values)):
       if( index % 10 == 0):
         output.write(",\n\t")

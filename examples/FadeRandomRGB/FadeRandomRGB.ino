@@ -1,6 +1,6 @@
 /**
  *  @file
- *  @Author Septillion (https://github.com/sseptillion)
+ *  @Author Septillion (https://github.com/septillion-git)
  *  @date 2016-08-15
  *  @brief Example how to use FadeLed with RGB-fading
  *  
