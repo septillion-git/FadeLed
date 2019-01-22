@@ -1,6 +1,6 @@
 /**
  *  @file
- *  @Author Septillion (https://github.com/sseptillion)
+ *  @Author Septillion (https://github.com/septillion-git)
  *  @date 2016-08-11
  *  @brief Example how to use FadeLed library
  *  

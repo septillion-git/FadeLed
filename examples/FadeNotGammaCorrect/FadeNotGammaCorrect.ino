@@ -1,6 +1,6 @@
 /**
  *  @file
- *  @Author Septillion (https://github.com/sseptillion)
+ *  @Author Septillion (https://github.com/septillion-git)
  *  @date 2016-1-30
  *  @brief Example to show the difference between fading with and without gamma correction.
  *  
