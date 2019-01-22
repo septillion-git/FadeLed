@@ -6,8 +6,9 @@
  *  
  *  @details This is an example how to use FadeLed library on an ESP32. 
  *  
- *  It will fade a led connected to pin 2 up and down with a fade 
- *  time of 5 seconds.
+ *  It will fade LED_BUILTIN up and down with a fade time of 5 seconds. Be sure
+ *  to set the right board for the right LED_BUILTIN or change it to a pin
+ *  you like (and have a led connected).
  *  
  *  The ledc functionality of the ESP32. You can use every pin you like,
  *  just assign it a unique ledc channel. channel 0 to 15 are available.
@@ -21,7 +22,7 @@
 
 #include <FadeLed.h>
 
-byte LedPin = 2; //Pin to fade
+byte LedPin = LED_BUILTIN; //Pin to fade
 byte PwmCh = 0; //ledc channel to use for that
 
 //make a FadeLed object
