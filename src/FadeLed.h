@@ -60,7 +60,15 @@ typedef uint16_t flvar_t;
  *  **Default** = 6, the number of hardware PWM pins on an Uno/Pro Mini/Nano
  */
 #ifndef FADE_LED_MAX_LED
-#define FADE_LED_MAX_LED  6
+  #if defined(ESP8266)
+    #define FADE_LED_MAX_LED  14
+  #elif defined(ESP32)
+    #define FADE_LED_MAX_LED  16
+  #elif defined(ARDUINO_AVR_MEGA2560) || defined(ARDUINO_AVR_MEGA)
+    #define FADE_LED_MAX_LED  15
+  #else
+    #define FADE_LED_MAX_LED  6
+  #endif
 #endif
 
 /**
