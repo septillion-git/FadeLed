@@ -25,7 +25,9 @@
  *  
  *  Set this to a higher value for devices with higher PWM resolution. Will set the upper limit and variable type correspondingly.
  *  
- *  **Default** 8-bit: 0-255 for Uno/Nano/Pro Mini etc
+ *  - **ESP8266** 10-bit: 0-1023 (core limit)
+ *  - **ESP32** 10-bit: 0-1023 (1-16-bit possible, see FadeLedESP23-16-bit example)
+ *  - **Default** 8-bit: 0-255 for Uno/Nano/Pro Mini etc
  *  
  *  @warning Can't simply increase the number to have more PWM levels. It's limited to the hardware.
  */
@@ -57,14 +59,14 @@ typedef uint16_t flvar_t;
 /**
  *  @brief Maximum number of FadeLed objects
  *  
- *  **Uno**       = 6, all PWM pins
- *  **Nano**      = 6, all PWM pins
- *  **Pro Mini**  = 6, all PWM pins
- *  **ESP8622**   = 14, all GPIO pins
- *  **ESP32**     = 16, ledc-channel 0-15
- *  **Mega 2560** = 15, all PWM pins
- *  **Mega 1280** = 15, all PWM pins
- *  **Default**   = 6, the number of hardware PWM pins on an Uno/Pro Mini/Nano
+ *  - **Uno**       = 6, all PWM pins
+ *  - **Nano**      = 6, all PWM pins
+ *  - **Pro Mini**  = 6, all PWM pins
+ *  - **ESP8622**   = 14, all GPIO pins
+ *  - **ESP32**     = 16, ledc-channel 0-15
+ *  - **Mega 2560** = 15, all PWM pins
+ *  - **Mega 1280** = 15, all PWM pins
+ *  - **Default**   = 6, the number of hardware PWM pins on an Uno/Pro Mini/Nano
  */
 #ifndef FADE_LED_MAX_LED
   #if defined(ARDUINO_AVR_UNO) \
