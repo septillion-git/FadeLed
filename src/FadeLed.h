@@ -29,6 +29,8 @@
  *  - **ESP32** 10-bit: 0-1023 (1-16-bit possible, see FadeLedESP23-16-bit example)
  *  - **Default** 8-bit: 0-255 for Uno/Nano/Pro Mini etc
  *  
+ *  @note Value changed based on selected board.
+ *  
  *  @warning Can't simply increase the number to have more PWM levels. It's limited to the hardware.
  */
  #if defined(ESP8266) || defined(ESP32)
@@ -67,6 +69,8 @@ typedef uint16_t flvar_t;
  *  - **Mega 2560** = 15, all PWM pins
  *  - **Mega 1280** = 15, all PWM pins
  *  - **Default**   = 6, the number of hardware PWM pins on an Uno/Pro Mini/Nano
+ *  
+ *  @note Value changed based on selected board.
  */
 #ifndef FADE_LED_MAX_LED
   #if defined(ARDUINO_AVR_UNO) \
