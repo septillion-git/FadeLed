@@ -57,17 +57,26 @@ typedef uint16_t flvar_t;
 /**
  *  @brief Maximum number of FadeLed objects
  *  
- *  **ESP8622**       = 14, all GPIO pins
- *  **ESP32**         = 16, ledc-channel 0-15
- *  **Mega 2560/1280  = 15, all PWM pins
- *  **Default**       = 6, the number of hardware PWM pins on an Uno/Pro Mini/Nano
+ *  **Uno**       = 6, all PWM pins
+ *  **Nano**      = 6, all PWM pins
+ *  **Pro Mini**  = 6, all PWM pins
+ *  **ESP8622**   = 14, all GPIO pins
+ *  **ESP32**     = 16, ledc-channel 0-15
+ *  **Mega 2560** = 15, all PWM pins
+ *  **Mega 1280** = 15, all PWM pins
+ *  **Default**   = 6, the number of hardware PWM pins on an Uno/Pro Mini/Nano
  */
 #ifndef FADE_LED_MAX_LED
-  #if defined(ESP8266)
+  #if defined(ARDUINO_AVR_UNO) \
+  || defined(ARDUINO_AVR_NANO) \
+  || defined(ARDUINO_AVR_PRO)
+    #define FADE_LED_MAX_LED  6
+  #elif defined(ESP8266)
     #define FADE_LED_MAX_LED  14
   #elif defined(ESP32)
     #define FADE_LED_MAX_LED  16
-  #elif defined(ARDUINO_AVR_MEGA2560) || defined(ARDUINO_AVR_MEGA)
+  #elif defined(ARDUINO_AVR_MEGA2560) \
+  || defined(ARDUINO_AVR_MEGA)
     #define FADE_LED_MAX_LED  15
   #else
     #define FADE_LED_MAX_LED  6
