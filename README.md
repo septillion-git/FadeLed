@@ -158,7 +158,7 @@ void loop() {
 ```
 
 ### I have a device with more than 8-bit PWM
-Simply change the macro FADE_LED_PWM_BITS in FadeLed.h to the number of bits your device has. 
+Simply change the macro `FADE_LED_PWM_BITS` in `FadeLed.h` to the number of bits your device has. 
 
 For example for a with 10-bit PWM:
 ```C++
@@ -170,3 +170,18 @@ Selection is only automated for ESP8266. Would like to automate this in the futu
 
 ### Nothing changes when I call FadeLed.set() in constant fade time
 Calling FadeLed.set() is ignored while the LED is still fading in **constant fade time** (not in constant fade speed). Wait until it's done (check FadeLed.done() ) or call FadeLed.stop() to stop at the current brightness after which you can set a new brightness to fade to.
+
+### Error compiling for Digispark
+FadeLed **does** work on ATtiny85. But when you try to compile it for a Digispark you end up with
+```
+FadeLedGamma.h:10:39: error: 'nullptr' was not declared in this scope
+```
+This is unfortunally because the [Digispark board](https://github.com/digistump/DigistumpArduino) definition isn't updated in over two year. :pensive: C++11 isn't enabled for Digispark. You can enable it by editing the `platform.txt` of the Digispark. This file is located in
+```
+C:\Users\[User]\AppData\Local\Arduino15\packages\digistump\hardware\avr\1.6.7
+```
+Find the line starting with `compiler.cpp.flags` and add `-std=gnu++11`. Total line will look like
+```
+compiler.cpp.flags=-c -g -Os -w -fno-exceptions -ffunction-sections -fdata-sections -MMD -std=gnu++11
+```
+Restart the Arduino IDE and it should compile for a Digispark as well!
