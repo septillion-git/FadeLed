@@ -185,3 +185,6 @@ Find the line starting with `compiler.cpp.flags` and add `-std=gnu++11`. Total l
 compiler.cpp.flags=-c -g -Os -w -fno-exceptions -ffunction-sections -fdata-sections -MMD -std=gnu++11
 ```
 Restart the Arduino IDE and it should compile for a Digispark as well!
+
+### What license does apply to FadeLed?
+FadeLed is licenced under GPLv3. See `LICENSE`-file in the root of this project for more info.
